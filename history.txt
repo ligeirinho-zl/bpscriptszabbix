@@ -1,0 +1,412 @@
+    1  ls
+    2  sudo apt install zabbix-agent
+    3  vim /etc/zabbix/zabbix_agentd.conf
+    4  sudo vim /etc/zabbix/zabbix_agentd.conf
+    5  sudo systemctl restart zabbix-agent
+    6  sudo systemctl enable zabbix-agent
+    7  ls
+    8  cd /etc/zabbix/
+    9  ls
+   10  mkdir scripts
+   11  sudo mkdir scripts
+   12  ls
+   13  cd scripts/
+   14  cd ~
+   15  ls
+   16  sudo mkdir /var/lib/zabbix
+   17  chown zabbix:zabbix /var/lib/zabbix/
+   18  sudo chown zabbix:zabbix /var/lib/zabbix/
+   19  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+   20  sudo apt install unzip
+   21  unzip awscliv2.zip
+   22  sudo ./aws/install
+   23  aws conofigure 
+   24  aws configure
+   25  aws s3 ls
+   26  cd /etc/zabbix/
+   27  ls
+   28  cd scripts/
+   29  ls
+   30  touch s3_sem_tag.sh
+   31  sudo touch s3_sem_tag.sh
+   32  sudo vim s3_sem_tag.sh 
+   33  crontab -e
+   34  ls
+   35  cd /etc/zabbix/
+   36  ls
+   37  cd scripts/
+   38  ls
+   39  cd ..
+   40  ls
+   41  cd zabbix_agentd.conf.d/
+   42  ls
+   43  cat userparameter_aws.conf 
+   44  :q!
+   45  crontab -l
+   46  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+   47  history | grep syslog
+   48  sudo su
+   49  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+   50  ps -a
+   51  ps -axf
+   52  ps -axf | grep cron
+   53  ps -axf 
+   54  ps -axf | grep cron
+   55  ls
+   56  cat userparameter_aws.conf 
+   57  ps -axf | grep cron
+   58  crontab -e
+   59  sudo su
+   60  crontab -e
+   61  sudo su
+   62  crontab -l
+   63  zabbix   /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+   64  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+   65  sudo crontatab -e
+   66  sudo crontab -e
+   67  crontab -e
+   68  sudo crontab -e
+   69  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+   70  crontab -l
+   71  cat /etc/cron.d
+   72  cd  /etc/cron.d
+   73  ls
+   74  cat e2scrub_all 
+   75  cd /etc/zabbix/
+   76  ls
+   77  crontab -l
+   78  crontab -e
+   79  sudo crontab -e
+   80  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+   81  sudo su
+   82  crontab -l
+   83  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+   84  crontab -l
+   85  crontab -e
+   86  crontab -l
+   87  crontab -e
+   88  crontab -efsfasfasfasfffa
+   89  ]
+   90  :q
+   91  ls
+   92  cd /etc/zabbix/
+   93  ls
+   94  cd scripts/
+   95  ls
+   96  cd ..
+   97  ls
+   98  cd zabbix_agentd.conf.d/
+   99  ls
+  100  cat userparameter_aws.conf 
+  101  :q!
+  102  crontab -l
+  103  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  104  history | grep syslog
+  105  sudo su
+  106  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  107  ps -a
+  108  ps -axf
+  109  ps -axf | grep cron
+  110  ps -axf 
+  111  ps -axf | grep cron
+  112  ls
+  113  cat userparameter_aws.conf 
+  114  ps -axf | grep cron
+  115  crontab -e
+  116  sudo su
+  117  crontab -e
+  118  sudo su
+  119  crontab -l
+  120  zabbix   /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  121  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  122  sudo crontatab -e
+  123  sudo crontab -e
+  124  crontab -e
+  125  sudo crontab -e
+  126  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  127  crontab -l
+  128  cat /etc/cron.d
+  129  cd  /etc/cron.d
+  130  ls
+  131  cat e2scrub_all 
+  132  cd /etc/zabbix/
+  133  ls
+  134  crontab -l
+  135  crontab -e
+  136  sudo crontab -e
+  137  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  138  sudo su
+  139  crontab -l
+  140  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+  141  crontab -l
+  142  crontab -e
+  143  crontab -l
+  144  crontab -e
+  145  crontab -efsfasfasfasfffa
+  146  ]
+  147  :q
+  148  aws s3 ls
+  149  cd /etc/zabbix/
+  150  ls
+  151  cd scripts/
+  152  ls
+  153  wget https://bps3tst.s3.sa-east-1.amazonaws.com/bkp_scripts/scripts/aws-check-s3-public.sh
+  154  sudo vim aws-check-s3-public.sh 
+  155  sudo vim aws-elbv2-without-tag-prd.sh
+  156  l
+  157  sls
+  158  ls
+  159  sudo vim aws-elb-without-tag-prd.sh
+  160  sudo vim aws-lambda-without-tag-prd.sh
+  161  ls -ll
+  162  sudo vim aws-redis-without-tag-prd.sh
+  163  sudo vim aws-s3-encrypt-prd.sh
+  164  sudo vim aws-s3-without-tag-prd.sh
+  165  sudo vim aws-sns-without-tag-prd.sh
+  166  sudo vim aws-sqs-without-tag-prd.sh
+  167  sudo vim aws-verifica-lambdas.sh
+  168  sudo vim s3-no-tags.sh
+  169  chmod 755 8
+  170  chmod 755 *
+  171  sudo chmod 755 *
+  172  ls -ll
+  173  ls
+  174  sudo rm -r 1 
+  175  ls
+  176  ls | wc -l
+  177  cd ..
+  178  ls
+  179  sudo vim zabbix_agentd.conf
+  180  ls
+  181  cd zabbix_agentd.conf.d/
+  182  ls
+  183  sudo vim userparameter_aws.conf
+  184  ls
+  185  sudo crontab -e
+  186  ls
+  187  sudo systemctl restart zabbix-agent
+  188  cd ..
+  189  cd scripts/
+  190  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  191  ls
+  192  crontab -l
+  193  crontab -e
+  194  sudo crontab -e
+  195  crontab -e
+  196  crontab -l
+  197  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+  198  ls
+  199  cd ..
+  200  ls
+  201  cd zabbix_agentd.conf.d/
+  202  ls
+  203  sudo vum userparameter_aws.conf 
+  204  sudo vim userparameter_aws.conf 
+  205  cd ..
+  206  cd scripts/
+  207  pwd
+  208  cd ..
+  209  ls
+  210  cd zabbix_agentd.conf.d/
+  211  ls
+  212  sudo vim userparameter_aws.conf 
+  213  cd ..
+  214  ls
+  215  cd scripts/
+  216  ls
+  217  sudo vim s3notags.sh
+  218  chmod 755 # Usage example:
+  219  ###############################################################################
+  220  declare -i count='0'
+  221  lista=$(aws s3 ls | wc -l)
+  222  for OUTPUT in $(aws s3 ls | cut -c20-80); do list_tag=""    ; list_tag=$(aws s3api get-bucket-tagging --bucket $OUTPUT 2> /dev/null ); if [[ $list_tag =~ "bp" ]]; then
+  223    
+  224  count=$count+1            fi
+  225  done
+  226  total=$(($lista - $count))
+  227  echo $total
+  228  :q
+  229  ls -ll
+  230  sudo chmod 755 s3notags.sh 
+  231  ls -ll
+  232  ls
+  233  sudo systemctl restart zabbix-agent
+  234  ./s3notags.sh 
+  235  zabbix_agentd -t s3notags.sh 
+  236  cd ..
+  237  ls
+  238  cd zabbix_agentd.conf.d/
+  239  sudo vim userparameter_aws.conf 
+  240  sudo systemctl restart zabbix-agent
+  241  zabbix_agentd -t s3notags
+  242  ls
+  243  cd ..
+  244  ks
+  245  cd scripts/
+  246  ls
+  247  zabbix_agentd -t s3notags
+  248  systemctl status cron
+  249  systemctl restart cron
+  250  sudo su
+  251  ls
+  252  ls -ll
+  253  chmod +x *
+  254  sudo chmod +x *
+  255  ls -ll
+  256  sudo grep –a “Cron.sh” / var / log / syslog
+  257  sudo grep –a “Cron.sh” /var/log/syslog
+  258  sudo grep –a “s3notags.sh” /var/log/syslog
+  259  sudo grep –a /var/log/syslog
+  260  ls
+  261  sudo tail /var /log /syslog
+  262  sudo tail /var/log/syslog
+  263  sudo apt-get install postfix
+  264  sudo tail /var/log/syslog
+  265  sudo tail-f /var/log/syslog
+  266  sudo tail-l /var/log/syslog
+  267  sudo tail-F /var/log/syslog
+  268  sudo tail /var/log/syslog
+  269  sudo tail -f /var/log/syslog
+  270  crontab -e
+  271  sudo tail -f /var/log/syslog
+  272  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+  273  systemctl restart cron
+  274  sudo su
+  275  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+  276  sudo tail -f /var/mail/zabbix
+  277  crontab -e
+  278  sudo tail -f /var/mail/zabbix
+  279  ls
+  280  sudo vim s3-no-tags.sh 
+  281  sudo tail -f /var/mail/zabbix
+  282  sudo vim s3-no-tags.sh 
+  283  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+  284  sudo tail -f /var/mail/zabbix
+  285  sudo apt install python3-pip
+  286  pip3 install awscli --upgrade --user
+  287  sudo tail -f /var/mail/zabbix
+  288  aws s3 ls
+  289  sudo tail -f /var/mail/zabbix
+  290  sudo tail -f /var/log/syslog
+  291  crontab -e
+  292  sudo apt-get update -y
+  293  crontab -e
+  294  sudo tail -f /var/log/syslog
+  295  crontab -e
+  296  sudo tail -f /var/log/syslog
+  297  sudo apt remove postfix && apt purge postfix
+  298  sudo su
+  299  sudo tail -f /var/log/syslog
+  300  sudo su
+  301  sudo apt-get install postfix
+  302  sudo tail -f /var/log/syslog
+  303  sudo su
+  304  sudo tail -f /var/log/syslog
+  305  crontab -e
+  306  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3-no-tags -o $(/etc/zabbix/scripts/s3-no-tags.sh default)
+  307  crintab -l
+  308  crontab -l
+  309  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  310  ls
+  311  cd /etc/cron.d
+  312  ls
+  313  cat e2scrub_all 
+  314  ls
+  315  cd ..
+  316  ls
+  317  cd cron.daily/
+  318  ls
+  319  cat apport 
+  320  cat apt-compat 
+  321  ls
+  322  cd ..
+  323  cd cron.d
+  324  ls
+  325  crontab -e
+  326  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  327  crontab -l
+  328  psxfa
+  329  ps
+  330  psx
+  331  pps
+  332  ps
+  333  ls
+  334  cd ..
+  335  ls
+  336  cd cron.d
+  337  ls
+  338  cat e2scrub_all 
+  339  ls
+  340  cat popularity-contest 
+  341  sudo vim popularity-contest 
+  342  ls
+  343  su - zabbix
+  344  ls
+  345  cd /etc/zabbix/
+  346  ls
+  347  cd zabbix_agentd.conf.d/
+  348  ls
+  349  cat userparameter_aws.conf 
+  350  cd ..
+  351  ls
+  352  cd scripts/
+  353  ls
+  354  cd ..
+  355  la
+  356  cd zabbix_agentd.conf.d/
+  357  cat userparameter_aws.conf 
+  358  cat userparameter_aws.conf | grep ec2.without.tag.sh
+  359  crontab -l
+  360  cd ..
+  361  ls
+  362  cd scripts/
+  363  ls
+  364  vim ec2.without.tag.sh 
+  365  aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId, Tags]" --output text | grep bp: | wc -l
+  366  aws configure
+  367  history | grep  aws ec2 describe-instances --query
+  368  history | grep  aws ec2 describe-instances
+  369  history | grep  ec2 describe-instances
+  370  history
+  371  ls
+  372  cd /etc/zabbix
+  373  ls
+  374  cd scripts
+  375  ls
+  376  sudo vim ec2.without.tag.sh
+  377  crontab -e
+  378  crontab -l
+  379  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2.without.tag -o $(/etc/zabbix/scripts/ec2.without.tag.sh default)
+  380  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/aws-s3-without-tag-prd.sh default)
+  381  ls
+  382  sudo vim aws-s3-without-tag-prd.sh 
+  383  sudo vim s3-sem-tag.sh
+  384  sudo chmod 775 s3-sem-tag.sh
+  385  crontab -e 
+  386  crontab -l
+  387  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/s3-sem-tag.sh default)
+  388  crontab -l
+  389  ls
+  390  cd..
+  391  cd
+  392  ls
+  393  exit
+  394  ls
+  395  exit
+  396  crontab -l
+  397  sudo crontab -e
+  398  crontab -e
+  399  crontab -l
+  400  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2.without.tag -o $(/etc/zabbix/scripts/ec2.without.tag.sh default)
+  401  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3..prd.without.encrypt -o $(/etc/zabbix/scripts/aws-s3-encrypt-prd.sh default)
+  402  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/s3-sem-tag.sh default)
+  403  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.sns.without.tag -o $(/etc/zabbix/scripts/aws-sns-without-tag-prd.sh default)
+  404  cd /etc/zabbix/
+  405  ls
+  406  cd zabbix_agentd.conf.d/
+  407  ls
+  408  cat userparameter_aws.conf 
+  409  aws ssm list-resource-compliance-summaries
+  410  aws configservice describe-compliance-by-resource --resource-type AWS::EC2::Instance --compliance-types NON_COMPLIANT
+  411  history | grep aws
+  412  history > history.txt
