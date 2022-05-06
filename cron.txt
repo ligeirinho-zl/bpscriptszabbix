@@ -1,0 +1,78 @@
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+###### RDS Sem Tags ######
+
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.redis.without.tag -o $(/etc/zabbix/scripts/aws-prd-rds-without-tag.sh default)
+
+########### Ec2 Sem Tags###
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2.without.tag -o $(/etc/zabbix/scripts/ec2.without.tag.sh default)
+
+
+###########S3 Sem Encriptar###
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3..prd.without.encrypt -o $(/etc/zabbix/scripts/aws-s3-encrypt-prd.sh default)
+
+
+######### S3-sem-tag #######
+5 * * * *  /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/s3-sem-tag.sh default)
+
+###SNS PRD Sem TAG###
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.sns.without.tag -o $(/etc/zabbix/scripts/aws-sns-without-tag-prd.sh default)
+
+###SQS PRD Sem TAG###
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.sqs.without.tag -o $(/etc/zabbix/scripts/aws-sqs-without-tag-prd.sh default)
+
+####Lambda PRD Sem TAG####
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.lambda.without.tag -o $(/etc/zabbix/scripts/aws-lambda-without-tag-prd.sh default)
+
+####elbv2 Loadbalancer Application Sem Tag - PRD
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.elbv2.without.tag -o $(/etc/zabbix/scripts/aws-elbv2-without-tag-prd.sh default)
+
+####elb Loadbalancer Classic Sem Tag - PRD
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.elb.without.tag -o $(/etc/zabbix/scripts/aws-elb-without-tag-prd.sh default)
+
+
+#### Total S3
+5 * * * * /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k s3.prd  -o $(/etc/zabbix/scripts/s3-total.sh default)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
