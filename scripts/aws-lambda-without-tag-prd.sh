@@ -7,19 +7,29 @@
 ###############################################################################
 ###############################################################################
 
-declare -i count='0'
-lista=$(aws lambda list-functions --query 'Functions[].FunctionArn' | grep -v "\[" | grep -v "\]" | wc -l)
-for OUTPUT in $(aws lambda list-functions --query 'Functions[].FunctionArn' | grep -v "\[" | grep -v "\]" | sed -e 's/\"//g' | sed -e 's/\,//g')
-do
-list_tag=""    
-list_tag=$(aws lambda list-tags --resource $OUTPUT  2> /dev/null)
-if [[ $list_tag =~ "bp"]]; 
-then
 
-    #echo -e '\033[00;32mTem Tag bp: and bp '$OUTPUT'\033[00;37m' 
+#tagsVerify=('bp:negocio:nomeJornada', 'bp:negocio:nomeSquad', 'bp:tecnico:identificacaoDoServico', 'bp:tecnico:descricaoDoServico', 'bp:tecnico:ambiente')
+
+
+declare -i count='0'
+
+lista=$(aws lambda list-functions --query 'Functions[].FunctionArn' | grep -v "\[" | grep -v "\]" | wc -l)
+
+for OUTPUT in $(aws lambda list-functions --query 'Functions[].FunctionArn' | grep -v "\[" | grep -v "\]" | sed -e 's/\"//g' | sed -e 's/\,//g')
+
+do
+
+list_tag=""    
+
+list_tag=$(aws lambda list-tags --resource $OUTPUT  2> /dev/null)
+
+if [[ $list_tag == $lista ]];
+
+then
+    #echo -e '\033[00;32mTem Tag Tribo: '$OUTPUT'\033[00;37m' 
   
 #else
-    #echo -e '\033[00;31mNão Tem Tag bp: '$OUTPUT'\033[00;37m'  
+    #echo -e '\033[00;31mNão Tem Tag Tribo: '$OUTPUT'\033[00;37m'  
 count=$count+1    
        
 fi
