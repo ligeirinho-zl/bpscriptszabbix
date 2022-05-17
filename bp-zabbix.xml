@@ -1,0 +1,1747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-05-17T22:16:45Z</date>
+    <groups>
+        <group>
+            <name>Linux servers</name>
+        </group>
+    </groups>
+    <hosts>
+        <host>
+            <host>AWS</host>
+            <name>AWS</name>
+            <templates>
+                <template>
+                    <name>AWS Infra Compliance Brasil Prev-v.2</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Linux servers</name>
+                </group>
+            </groups>
+            <interfaces>
+                <interface>
+                    <ip>15.229.16.183</ip>
+                    <interface_ref>if1</interface_ref>
+                </interface>
+            </interfaces>
+            <applications>
+                <application>
+                    <name>CloudWatch</name>
+                </application>
+                <application>
+                    <name>CodeDeploy</name>
+                </application>
+                <application>
+                    <name>Filesystems</name>
+                </application>
+                <application>
+                    <name>General</name>
+                </application>
+                <application>
+                    <name>IAM</name>
+                </application>
+                <application>
+                    <name>Inventory</name>
+                </application>
+                <application>
+                    <name>Memory</name>
+                </application>
+                <application>
+                    <name>Monitoring agent</name>
+                </application>
+                <application>
+                    <name>Network interfaces</name>
+                </application>
+                <application>
+                    <name>Security</name>
+                </application>
+                <application>
+                    <name>Status</name>
+                </application>
+                <application>
+                    <name>Storage</name>
+                </application>
+                <application>
+                    <name>Zabbix raw items</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Host name of Zabbix agent running</name>
+                    <key>agent.hostname</key>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Monitoring agent</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Zabbix agent ping</name>
+                    <key>agent.ping</key>
+                    <history>7d</history>
+                    <description>The agent always returns 1 for this item. It could be used in combination with nodata() for availability check.</description>
+                    <applications>
+                        <application>
+                            <name>Monitoring agent</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Zabbix agent ping status</name>
+                    </valuemap>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Version of Zabbix agent running</name>
+                    <key>agent.version</key>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Monitoring agent</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>EC2 IDS</name>
+                    <type>TRAP</type>
+                    <key>ec2-ids-no-tags</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Maximum number of open file descriptors</name>
+                    <key>kernel.maxfiles</key>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <description>It could be increased by using sysctrl utility or modifying file /etc/sysctl.conf.</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;{$KERNEL.MAXFILES.MIN}</expression>
+                            <name>Configured max number of open filedescriptors is too low (&lt; {$KERNEL.MAXFILES.MIN})</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Maximum number of processes</name>
+                    <key>kernel.maxproc</key>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <description>It could be increased by using sysctrl utility or modifying file /etc/sysctl.conf.</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;{$KERNEL.MAXPROC.MIN}</expression>
+                            <name>Configured max number of processes is too low (&lt; {$KERNEL.MAXPROC.MIN})</name>
+                            <priority>INFO</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>Getting closer to process limit (over 80% used)</name>
+                                    <expression>{AWS:proc.num.last()}/{AWS:kernel.maxproc.last()}*100&gt;80</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>lambda-total</name>
+                    <type>TRAP</type>
+                    <key>lambda-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>Lambda</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Number of processes</name>
+                    <key>proc.num</key>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Number of running processes</name>
+                    <key>proc.num[,,run]</key>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>RDS IDS</name>
+                    <type>TRAP</type>
+                    <key>rds-ids-no-tags</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>RDS Total</name>
+                    <type>TRAP</type>
+                    <key>rds-ids-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>s3-no-tags</name>
+                    <type>TRAP</type>
+                    <key>s3-no-tags</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>S3 unencrypted IDS</name>
+                    <type>TRAP</type>
+                    <key>S3-unencrypted-ids</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>S3 Names</name>
+                    <type>TRAP</type>
+                    <key>s3.prd.names</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>S3 Names not in compliance</description>
+                    <applications>
+                        <application>
+                            <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System boot time</name>
+                    <key>system.boottime</key>
+                    <delay>15m</delay>
+                    <history>7d</history>
+                    <units>unixtime</units>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>System name</name>
+                    <key>system.hostname</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>System host name.</description>
+                    <inventory_link>NAME</inventory_link>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff()}=1 and {strlen()}&gt;0</expression>
+                            <name>System name has changed (new name: {ITEM.VALUE})</name>
+                            <priority>INFO</priority>
+                            <description>System name has changed. Ack to close.</description>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>System local time</name>
+                    <key>system.localtime</key>
+                    <history>7d</history>
+                    <units>unixtime</units>
+                    <description>System local time of the host.</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <interface_ref>if1</interface_ref>
+                    <triggers>
+                        <trigger>
+                            <expression>{fuzzytime({$SYSTEM.FUZZYTIME.MAX})}=0</expression>
+                            <name>System time is out of sync (diff with Zabbix server &gt; {$SYSTEM.FUZZYTIME.MAX}s)</name>
+                            <priority>WARNING</priority>
+                            <description>The host system time is different from the Zabbix server time.</description>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Operating system architecture</name>
+                    <key>system.sw.arch</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Operating system architecture of the host.</description>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Operating system</name>
+                    <key>system.sw.os</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <inventory_link>OS</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff()}=1 and {strlen()}&gt;0</expression>
+                            <recovery_mode>NONE</recovery_mode>
+                            <name>Operating system description has changed</name>
+                            <priority>INFO</priority>
+                            <description>Operating system description has changed. Possible reasons that system has been updated or replaced. Ack to close.</description>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>System name has changed (new name: {ITEM.VALUE})</name>
+                                    <expression>{AWS:system.hostname.diff()}=1 and {AWS:system.hostname.strlen()}&gt;0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Software installed</name>
+                    <key>system.sw.packages</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>System description</name>
+                    <key>system.uname</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>The information as normally returned by 'uname -a'.</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1d</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>System uptime</name>
+                    <key>system.uptime</key>
+                    <delay>30s</delay>
+                    <history>2w</history>
+                    <trends>0d</trends>
+                    <units>uptime</units>
+                    <description>System uptime in 'N days, hh:mm:ss' format.</description>
+                    <applications>
+                        <application>
+                            <name>Status</name>
+                        </application>
+                    </applications>
+                    <interface_ref>if1</interface_ref>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;10m</expression>
+                            <name>{HOST.NAME} has been restarted (uptime &lt; 10m)</name>
+                            <priority>WARNING</priority>
+                            <description>The host uptime is less than 10 minutes</description>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Number of logged in users</name>
+                    <key>system.users.num</key>
+                    <history>7d</history>
+                    <description>Number of users who are currently logged in.</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Get /proc/diskstats</name>
+                    <key>vfs.file.contents[/proc/diskstats]</key>
+                    <history>1h</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Get contents of /proc/diskstats for discovery and disk stats.</description>
+                    <applications>
+                        <application>
+                            <name>Zabbix raw items</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var parsed = value.split(&quot;\n&quot;).reduce(function(acc, x, i) {
+  parts = x.trim().split(/ +/)
+  acc[&quot;values&quot;][parts[2]] = parts
+  acc[&quot;lld&quot;].push({&quot;{#DEVNAME}&quot;:parts[2]})
+  return acc;
+}, {&quot;values&quot;:{}, &quot;lld&quot;: []});
+
+return JSON.stringify(parsed);</params>
+                        </step>
+                    </preprocessing>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Zabbix agent availability</name>
+                    <type>INTERNAL</type>
+                    <key>zabbix[host,agent,available]</key>
+                    <history>7d</history>
+                    <description>Monitoring agent availability status</description>
+                    <applications>
+                        <application>
+                            <name>Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>zabbix.host.available</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{max({$AGENT.TIMEOUT})}=0</expression>
+                            <name>Zabbix agent is not available (for {$AGENT.TIMEOUT})</name>
+                            <priority>AVERAGE</priority>
+                            <description>For passive only agents, host availability is used with {$AGENT.TIMEOUT} as time threshold.</description>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Network interface discovery</name>
+                    <key>net.if.discovery</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>{$NET.IF.IFNAME.MATCHES}</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>{$NET.IF.IFNAME.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <description>Discovery of network interfaces.</description>
+                    <interface_ref>if1</interface_ref>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Inbound packets discarded</name>
+                            <key>net.if.in[&quot;{#IFNAME}&quot;,dropped]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Inbound packets with errors</name>
+                            <key>net.if.in[&quot;{#IFNAME}&quot;,errors]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Bits received</name>
+                            <key>net.if.in[&quot;{#IFNAME}&quot;]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Outbound packets discarded</name>
+                            <key>net.if.out[&quot;{#IFNAME}&quot;,dropped]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Outbound packets with errors</name>
+                            <key>net.if.out[&quot;{#IFNAME}&quot;,errors]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Bits sent</name>
+                            <key>net.if.out[&quot;{#IFNAME}&quot;]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Operational status</name>
+                            <key>vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;]</key>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <description>Indicates the interface RFC2863 operational state as a string.&#13;
+Possible values are:&quot;unknown&quot;, &quot;notpresent&quot;, &quot;down&quot;, &quot;lowerlayerdown&quot;, &quot;testing&quot;,&quot;dormant&quot;, &quot;up&quot;.&#13;
+Reference: https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-net</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>IF-MIB::ifOperStatus</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JAVASCRIPT</type>
+                                    <params>var newvalue;
+switch(value) {
+  case &quot;up&quot;:
+    newvalue = 1;
+    break;
+  case &quot;down&quot;:
+    newvalue = 2;
+    break;
+  case &quot;testing&quot;:
+    newvalue = 4;
+    break;
+  case &quot;unknown&quot;:
+    newvalue = 5;
+    break;
+  case &quot;dormant&quot;:
+    newvalue = 6;
+    break;
+  case &quot;notPresent&quot;:
+    newvalue = 7;
+    break;
+  default:
+    newvalue = &quot;Problem parsing interface operstate in JS&quot;;
+}
+return newvalue;</params>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and ({last()}=2 and {diff()}=1)</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}&lt;&gt;2</recovery_expression>
+                                    <name>Interface {#IFNAME}: Link down</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>AVERAGE</priority>
+                                    <description>This trigger expression works as follows:&#13;
+1. Can be triggered if operations status is down.&#13;
+2. {$IFCONTROL:&quot;{#IFNAME}&quot;}=1 - user can redefine Context macro to value - 0. That marks this interface as not important. No new trigger will be fired if this interface is down.&#13;
+3. {TEMPLATE_NAME:METRIC.diff()}=1) - trigger fires only if operational status was up(1) sometime before. (So, do not fire 'ethernal off' interfaces.)&#13;
+&#13;
+WARNING: if closed manually - won't fire again on next poll, because of .diff.</description>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFNAME}: Interface type</name>
+                            <key>vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>0d</trends>
+                            <description>Indicates the interface protocol type as a decimal value.&#13;
+See include/uapi/linux/if_arp.h for all possible values.&#13;
+Reference: https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-net</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Interface {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>Linux::Interface protocol types</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>1d</params>
+                                </step>
+                            </preprocessing>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;].change()}&lt;0 and {AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;].last()}&gt;0&#13;
+and&#13;
+({AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;].last()}=6&#13;
+or {AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;].last()}=1)&#13;
+and&#13;
+({AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].last()}&lt;&gt;2)</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>({AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;].change()}&gt;0 and {AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/type&quot;].prev()}&gt;0) or&#13;
+({AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].last()}=2)</recovery_expression>
+                            <name>Interface {#IFNAME}: Ethernet has changed to lower speed than it was before</name>
+                            <opdata>Current reported speed: {ITEM.LASTVALUE1}</opdata>
+                            <priority>INFO</priority>
+                            <description>This Ethernet connection has transitioned down from its known maximum speed. This might be a sign of autonegotiation issues. Ack to close.</description>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>Interface {#IFNAME}: Link down</name>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and ({AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].last()}=2 and {AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].diff()}=1)</expression>
+                                    <recovery_expression>{AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].last()}&lt;&gt;2</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{AWS:net.if.in[&quot;{#IFNAME}&quot;,errors].min(5m)}&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}&#13;
+or {AWS:net.if.out[&quot;{#IFNAME}&quot;,errors].min(5m)}&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{AWS:net.if.in[&quot;{#IFNAME}&quot;,errors].max(5m)}&lt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}*0.8&#13;
+and {AWS:net.if.out[&quot;{#IFNAME}&quot;,errors].max(5m)}&lt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}*0.8</recovery_expression>
+                            <name>Interface {#IFNAME}: High error rate ( &gt; {$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} for 5m)</name>
+                            <opdata>errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}</opdata>
+                            <priority>WARNING</priority>
+                            <description>Recovers when below 80% of {$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} threshold</description>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>Interface {#IFNAME}: Link down</name>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and ({AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].last()}=2 and {AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].diff()}=1)</expression>
+                                    <recovery_expression>{AWS:vfs.file.contents[&quot;/sys/class/net/{#IFNAME}/operstate&quot;].last()}&lt;&gt;2</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Interface {#IFNAME}: Network traffic</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>net.if.in[&quot;{#IFNAME}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>net.if.out[&quot;{#IFNAME}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>net.if.out[&quot;{#IFNAME}&quot;,errors]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>A54F10</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>net.if.in[&quot;{#IFNAME}&quot;,errors]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>FC6EA3</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>net.if.out[&quot;{#IFNAME}&quot;,dropped]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>5</sortorder>
+                                    <color>6C59DC</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>net.if.in[&quot;{#IFNAME}&quot;,dropped]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Block devices discovery</name>
+                    <type>DEPENDENT</type>
+                    <key>vfs.dev.discovery</key>
+                    <delay>0</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#DEVNAME}</macro>
+                                <value>{$VFS.DEV.DEVNAME.MATCHES}</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#DEVNAME}</macro>
+                                <value>{$VFS.DEV.DEVNAME.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk average queue size (avgqu-sz)</name>
+                            <type>DEPENDENT</type>
+                            <key>vfs.dev.queue_size[{#DEVNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <description>Current average disk queue, the number of requests outstanding on the disk at the time the performance data is collected.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Disk {#DEVNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.values['{#DEVNAME}'][13]</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.001</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>vfs.file.contents[/proc/diskstats]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk read request avg waiting time (r_await)</name>
+                            <type>CALCULATED</type>
+                            <key>vfs.dev.read.await[{#DEVNAME}]</key>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>!ms</units>
+                            <params>(last(&quot;vfs.dev.read.time.rate[{#DEVNAME}]&quot;)/(last(&quot;vfs.dev.read.rate[{#DEVNAME}]&quot;)+(last(&quot;vfs.dev.read.rate[{#DEVNAME}]&quot;)=0)))*1000*(last(&quot;vfs.dev.read.rate[{#DEVNAME}]&quot;) &gt; 0)</params>
+                            <description>This formula contains two boolean expressions that evaluates to 1 or 0 in order to set calculated metric to zero and to avoid division by zero exception.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Disk {#DEVNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk read rate</name>
+                            <type>DEPENDENT</type>
+                            <key>vfs.dev.read.rate[{#DEVNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>!r/s</units>
+                            <description>r/s. The number (after merges) of read requests completed per second for the device.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Disk {#DEVNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.values['{#DEVNAME}'][3]</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>vfs.file.contents[/proc/diskstats]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk read time (rate)</name>
+                            <type>DEPENDENT</type>
+                            <key>vfs.dev.read.time.rate[{#DEVNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <description>Rate of total read time counter. Used in r_await calculation</description>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw items</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.values['{#DEVNAME}'][6]</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.001</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>vfs.file.contents[/proc/diskstats]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk utilization</name>
+                            <type>DEPENDENT</type>
+                            <key>vfs.dev.util[{#DEVNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <description>This item is the percentage of elapsed time that the selected disk drive was busy servicing read or writes requests.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Disk {#DEVNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.values['{#DEVNAME}'][12]</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.1</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>vfs.file.contents[/proc/diskstats]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk write request avg waiting time (w_await)</name>
+                            <type>CALCULATED</type>
+                            <key>vfs.dev.write.await[{#DEVNAME}]</key>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>!ms</units>
+                            <params>(last(&quot;vfs.dev.write.time.rate[{#DEVNAME}]&quot;)/(last(&quot;vfs.dev.write.rate[{#DEVNAME}]&quot;)+(last(&quot;vfs.dev.write.rate[{#DEVNAME}]&quot;)=0)))*1000*(last(&quot;vfs.dev.write.rate[{#DEVNAME}]&quot;) &gt; 0)</params>
+                            <description>This formula contains two boolean expressions that evaluates to 1 or 0 in order to set calculated metric to zero and to avoid division by zero exception.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Disk {#DEVNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk write rate</name>
+                            <type>DEPENDENT</type>
+                            <key>vfs.dev.write.rate[{#DEVNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>!w/s</units>
+                            <description>w/s. The number (after merges) of write requests completed per second for the device.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Disk {#DEVNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.values['{#DEVNAME}'][7]</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>vfs.file.contents[/proc/diskstats]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DEVNAME}: Disk write time (rate)</name>
+                            <type>DEPENDENT</type>
+                            <key>vfs.dev.write.time.rate[{#DEVNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <description>Rate of total write time counter. Used in w_await calculation</description>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw items</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.values['{#DEVNAME}'][10]</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.001</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>vfs.file.contents[/proc/diskstats]</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{AWS:vfs.dev.read.await[{#DEVNAME}].min(15m)} &gt; {$VFS.DEV.READ.AWAIT.WARN:&quot;{#DEVNAME}&quot;} or {AWS:vfs.dev.write.await[{#DEVNAME}].min(15m)} &gt; {$VFS.DEV.WRITE.AWAIT.WARN:&quot;{#DEVNAME}&quot;}</expression>
+                            <name>{#DEVNAME}: Disk read/write request responses are too high (read &gt; {$VFS.DEV.READ.AWAIT.WARN:&quot;{#DEVNAME}&quot;} ms for 15m or write &gt; {$VFS.DEV.WRITE.AWAIT.WARN:&quot;{#DEVNAME}&quot;} ms for 15m)</name>
+                            <priority>WARNING</priority>
+                            <description>This trigger might indicate disk {#DEVNAME} saturation.</description>
+                            <manual_close>YES</manual_close>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>{#DEVNAME}: Disk average waiting time</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.dev.read.await[{#DEVNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.dev.write.await[{#DEVNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#DEVNAME}: Disk read/write rates</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.dev.read.rate[{#DEVNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.dev.write.rate[{#DEVNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#DEVNAME}: Disk utilization and queue</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.dev.queue_size[{#DEVNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.dev.util[{#DEVNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <master_item>
+                        <key>vfs.file.contents[/proc/diskstats]</key>
+                    </master_item>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.lld</params>
+                        </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Mounted filesystem discovery</name>
+                    <key>vfs.fs.discovery</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#FSTYPE}</macro>
+                                <value>{$VFS.FS.FSTYPE.MATCHES}</value>
+                                <formulaid>C</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#FSTYPE}</macro>
+                                <value>{$VFS.FS.FSTYPE.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>D</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#FSNAME}</macro>
+                                <value>{$VFS.FS.FSNAME.MATCHES}</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#FSNAME}</macro>
+                                <value>{$VFS.FS.FSNAME.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <description>Discovery of file systems of different types.</description>
+                    <interface_ref>if1</interface_ref>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#FSNAME}: Free inodes in %</name>
+                            <key>vfs.fs.inode[{#FSNAME},pfree]</key>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Filesystem {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <interface_ref>if1</interface_ref>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{min(5m)}&lt;{$VFS.FS.INODE.PFREE.MIN.CRIT:&quot;{#FSNAME}&quot;}</expression>
+                                    <name>{#FSNAME}: Running out of free inodes (free &lt; {$VFS.FS.INODE.PFREE.MIN.CRIT:&quot;{#FSNAME}&quot;}%)</name>
+                                    <opdata>Free inodes: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>AVERAGE</priority>
+                                    <description>It may become impossible to write to disk if there are no index nodes left.&#13;
+As symptoms, 'No space left on device' or 'Disk is full' errors may be seen even though free space is available.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{min(5m)}&lt;{$VFS.FS.INODE.PFREE.MIN.WARN:&quot;{#FSNAME}&quot;}</expression>
+                                    <name>{#FSNAME}: Running out of free inodes (free &lt; {$VFS.FS.INODE.PFREE.MIN.WARN:&quot;{#FSNAME}&quot;}%)</name>
+                                    <opdata>Free inodes: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <description>It may become impossible to write to disk if there are no index nodes left.&#13;
+As symptoms, 'No space left on device' or 'Disk is full' errors may be seen even though free space is available.</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>{#FSNAME}: Running out of free inodes (free &lt; {$VFS.FS.INODE.PFREE.MIN.CRIT:&quot;{#FSNAME}&quot;}%)</name>
+                                            <expression>{AWS:vfs.fs.inode[{#FSNAME},pfree].min(5m)}&lt;{$VFS.FS.INODE.PFREE.MIN.CRIT:&quot;{#FSNAME}&quot;}</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#FSNAME}: Space utilization</name>
+                            <key>vfs.fs.size[{#FSNAME},pused]</key>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <description>Space utilization in % for {#FSNAME}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Filesystem {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#FSNAME}: Total space</name>
+                            <key>vfs.fs.size[{#FSNAME},total]</key>
+                            <history>7d</history>
+                            <units>B</units>
+                            <description>Total space in Bytes</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Filesystem {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#FSNAME}: Used space</name>
+                            <key>vfs.fs.size[{#FSNAME},used]</key>
+                            <history>7d</history>
+                            <units>B</units>
+                            <description>Used storage in Bytes</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Filesystem {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <interface_ref>if1</interface_ref>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{AWS:vfs.fs.size[{#FSNAME},pused].last()}&gt;{$VFS.FS.PUSED.MAX.CRIT:&quot;{#FSNAME}&quot;} and&#13;
+(({AWS:vfs.fs.size[{#FSNAME},total].last()}-{AWS:vfs.fs.size[{#FSNAME},used].last()})&lt;5G or {AWS:vfs.fs.size[{#FSNAME},pused].timeleft(1h,,100)}&lt;1d)</expression>
+                            <name>{#FSNAME}: Disk space is critically low (used &gt; {$VFS.FS.PUSED.MAX.CRIT:&quot;{#FSNAME}&quot;}%)</name>
+                            <opdata>Space used: {ITEM.LASTVALUE3} of {ITEM.LASTVALUE2} ({ITEM.LASTVALUE1})</opdata>
+                            <priority>AVERAGE</priority>
+                            <description>Two conditions should match: First, space utilization should be above {$VFS.FS.PUSED.MAX.CRIT:&quot;{#FSNAME}&quot;}.&#13;
+ Second condition should be one of the following:&#13;
+ - The disk free space is less than 5G.&#13;
+ - The disk will be full in less than 24 hours.</description>
+                            <manual_close>YES</manual_close>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{AWS:vfs.fs.size[{#FSNAME},pused].last()}&gt;{$VFS.FS.PUSED.MAX.WARN:&quot;{#FSNAME}&quot;} and&#13;
+(({AWS:vfs.fs.size[{#FSNAME},total].last()}-{AWS:vfs.fs.size[{#FSNAME},used].last()})&lt;10G or {AWS:vfs.fs.size[{#FSNAME},pused].timeleft(1h,,100)}&lt;1d)</expression>
+                            <name>{#FSNAME}: Disk space is low (used &gt; {$VFS.FS.PUSED.MAX.WARN:&quot;{#FSNAME}&quot;}%)</name>
+                            <opdata>Space used: {ITEM.LASTVALUE3} of {ITEM.LASTVALUE2} ({ITEM.LASTVALUE1})</opdata>
+                            <priority>WARNING</priority>
+                            <description>Two conditions should match: First, space utilization should be above {$VFS.FS.PUSED.MAX.WARN:&quot;{#FSNAME}&quot;}.&#13;
+ Second condition should be one of the following:&#13;
+ - The disk free space is less than 10G.&#13;
+ - The disk will be full in less than 24 hours.</description>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#FSNAME}: Disk space is critically low (used &gt; {$VFS.FS.PUSED.MAX.CRIT:&quot;{#FSNAME}&quot;}%)</name>
+                                    <expression>{AWS:vfs.fs.size[{#FSNAME},pused].last()}&gt;{$VFS.FS.PUSED.MAX.CRIT:&quot;{#FSNAME}&quot;} and&#13;
+(({AWS:vfs.fs.size[{#FSNAME},total].last()}-{AWS:vfs.fs.size[{#FSNAME},used].last()})&lt;5G or {AWS:vfs.fs.size[{#FSNAME},pused].timeleft(1h,,100)}&lt;1d)</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>{#FSNAME}: Disk space usage</name>
+                            <width>600</width>
+                            <height>340</height>
+                            <type>PIE</type>
+                            <show_3d>YES</show_3d>
+                            <graph_items>
+                                <graph_item>
+                                    <color>969696</color>
+                                    <calc_fnc>LAST</calc_fnc>
+                                    <type>GRAPH_SUM</type>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.fs.size[{#FSNAME},total]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>C80000</color>
+                                    <calc_fnc>LAST</calc_fnc>
+                                    <item>
+                                        <host>AWS</host>
+                                        <key>vfs.fs.size[{#FSNAME},used]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <inventory_mode>DISABLED</inventory_mode>
+        </host>
+    </hosts>
+    <triggers>
+        <trigger>
+            <expression>{AWS:proc.num.last()}/{AWS:kernel.maxproc.last()}*100&gt;80</expression>
+            <name>Getting closer to process limit (over 80% used)</name>
+            <opdata>{ITEM.LASTVALUE1} active, {ITEM.LASTVALUE2} limit.</opdata>
+            <priority>WARNING</priority>
+        </trigger>
+    </triggers>
+    <graphs>
+        <graph>
+            <name>Processes</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>AWS</host>
+                        <key>proc.num</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>AWS</host>
+                        <key>proc.num[,,run]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>AWS</host>
+                        <key>kernel.maxproc</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>IF-MIB::ifOperStatus</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>dormant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>notPresent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>lowerLayerDown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Linux::Interface protocol types</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>from KA9Q: NET/ROM pseudo</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Ethernet</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Experimental Ethernet</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>AX.25 Level 2</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>PROnet token ring</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Chaosnet</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>IEEE 802.2 Ethernet/TR/TB</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>ARCnet</newvalue>
+                </mapping>
+                <mapping>
+                    <value>8</value>
+                    <newvalue>APPLEtalk</newvalue>
+                </mapping>
+                <mapping>
+                    <value>15</value>
+                    <newvalue>Frame Relay DLCI</newvalue>
+                </mapping>
+                <mapping>
+                    <value>19</value>
+                    <newvalue>ATM</newvalue>
+                </mapping>
+                <mapping>
+                    <value>23</value>
+                    <newvalue>Metricom STRIP (new IANA id)</newvalue>
+                </mapping>
+                <mapping>
+                    <value>24</value>
+                    <newvalue>IEEE 1394 IPv4 - RFC 2734</newvalue>
+                </mapping>
+                <mapping>
+                    <value>27</value>
+                    <newvalue>EUI-64</newvalue>
+                </mapping>
+                <mapping>
+                    <value>32</value>
+                    <newvalue>InfiniBand</newvalue>
+                </mapping>
+                <mapping>
+                    <value>256</value>
+                    <newvalue>ARPHRD_SLIP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>257</value>
+                    <newvalue>ARPHRD_CSLIP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>258</value>
+                    <newvalue>ARPHRD_SLIP6</newvalue>
+                </mapping>
+                <mapping>
+                    <value>259</value>
+                    <newvalue>ARPHRD_CSLIP6</newvalue>
+                </mapping>
+                <mapping>
+                    <value>260</value>
+                    <newvalue>Notional KISS type</newvalue>
+                </mapping>
+                <mapping>
+                    <value>264</value>
+                    <newvalue>ARPHRD_ADAPT</newvalue>
+                </mapping>
+                <mapping>
+                    <value>270</value>
+                    <newvalue>ARPHRD_ROSE</newvalue>
+                </mapping>
+                <mapping>
+                    <value>271</value>
+                    <newvalue>CCITT X.25</newvalue>
+                </mapping>
+                <mapping>
+                    <value>272</value>
+                    <newvalue>Boards with X.25 in firmware</newvalue>
+                </mapping>
+                <mapping>
+                    <value>280</value>
+                    <newvalue>Controller Area Network</newvalue>
+                </mapping>
+                <mapping>
+                    <value>512</value>
+                    <newvalue>ARPHRD_PPP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>513</value>
+                    <newvalue>Cisco HDLC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>516</value>
+                    <newvalue>LAPB</newvalue>
+                </mapping>
+                <mapping>
+                    <value>517</value>
+                    <newvalue>Digital's DDCMP protocol</newvalue>
+                </mapping>
+                <mapping>
+                    <value>518</value>
+                    <newvalue>Raw HDLC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>519</value>
+                    <newvalue>Raw IP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>768</value>
+                    <newvalue>IPIP tunnel</newvalue>
+                </mapping>
+                <mapping>
+                    <value>769</value>
+                    <newvalue>IP6IP6 tunnel</newvalue>
+                </mapping>
+                <mapping>
+                    <value>770</value>
+                    <newvalue>Frame Relay Access Device</newvalue>
+                </mapping>
+                <mapping>
+                    <value>771</value>
+                    <newvalue>SKIP vif</newvalue>
+                </mapping>
+                <mapping>
+                    <value>772</value>
+                    <newvalue>Loopback device</newvalue>
+                </mapping>
+                <mapping>
+                    <value>773</value>
+                    <newvalue>Localtalk device</newvalue>
+                </mapping>
+                <mapping>
+                    <value>774</value>
+                    <newvalue>Fiber Distributed Data Interface</newvalue>
+                </mapping>
+                <mapping>
+                    <value>775</value>
+                    <newvalue>AP1000 BIF</newvalue>
+                </mapping>
+                <mapping>
+                    <value>776</value>
+                    <newvalue>sit0 device - IPv6-in-IPv4</newvalue>
+                </mapping>
+                <mapping>
+                    <value>777</value>
+                    <newvalue>IP over DDP tunneller</newvalue>
+                </mapping>
+                <mapping>
+                    <value>778</value>
+                    <newvalue>GRE over IP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>779</value>
+                    <newvalue>PIMSM register interface</newvalue>
+                </mapping>
+                <mapping>
+                    <value>780</value>
+                    <newvalue>High Performance Parallel Interface</newvalue>
+                </mapping>
+                <mapping>
+                    <value>781</value>
+                    <newvalue>Nexus 64Mbps Ash</newvalue>
+                </mapping>
+                <mapping>
+                    <value>782</value>
+                    <newvalue>Acorn Econet</newvalue>
+                </mapping>
+                <mapping>
+                    <value>783</value>
+                    <newvalue>Linux-IrDA</newvalue>
+                </mapping>
+                <mapping>
+                    <value>784</value>
+                    <newvalue>Point to point fibrechannel</newvalue>
+                </mapping>
+                <mapping>
+                    <value>785</value>
+                    <newvalue>Fibrechannel arbitrated loop</newvalue>
+                </mapping>
+                <mapping>
+                    <value>786</value>
+                    <newvalue>Fibrechannel public loop</newvalue>
+                </mapping>
+                <mapping>
+                    <value>787</value>
+                    <newvalue>Fibrechannel fabric</newvalue>
+                </mapping>
+                <mapping>
+                    <value>800</value>
+                    <newvalue>Magic type ident for TR</newvalue>
+                </mapping>
+                <mapping>
+                    <value>801</value>
+                    <newvalue>IEEE 802.11</newvalue>
+                </mapping>
+                <mapping>
+                    <value>802</value>
+                    <newvalue>IEEE 802.11 + Prism2 header</newvalue>
+                </mapping>
+                <mapping>
+                    <value>803</value>
+                    <newvalue>IEEE 802.11 + radiotap header</newvalue>
+                </mapping>
+                <mapping>
+                    <value>804</value>
+                    <newvalue>ARPHRD_IEEE802154</newvalue>
+                </mapping>
+                <mapping>
+                    <value>805</value>
+                    <newvalue>IEEE 802.15.4 network monitor</newvalue>
+                </mapping>
+                <mapping>
+                    <value>820</value>
+                    <newvalue>PhoNet media type</newvalue>
+                </mapping>
+                <mapping>
+                    <value>821</value>
+                    <newvalue>PhoNet pipe header</newvalue>
+                </mapping>
+                <mapping>
+                    <value>822</value>
+                    <newvalue>CAIF media type</newvalue>
+                </mapping>
+                <mapping>
+                    <value>823</value>
+                    <newvalue>GRE over IPv6</newvalue>
+                </mapping>
+                <mapping>
+                    <value>824</value>
+                    <newvalue>Netlink header</newvalue>
+                </mapping>
+                <mapping>
+                    <value>825</value>
+                    <newvalue>IPv6 over LoWPAN</newvalue>
+                </mapping>
+                <mapping>
+                    <value>826</value>
+                    <newvalue>Vsock monitor header</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>zabbix.host.available</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>not available</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>available</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Zabbix agent ping status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
