@@ -1,6 +1,5 @@
 #! /usr/bin/bash
 
 
-aws elbv2 describe-load-balancers --query "LoadBalancers[*].DNSName" --output text
-aws elb describe-load-balancers --query "LoadBalancerDescriptions[*].DNSName" --output text
+aws configservice describe-compliance-by-config-rule --config-rule-name LB-no-Tags --compliance-types NON_COMPLIANT --query "ComplianceByConfigRules[*].Compliance.ComplianceContributorCount.CappedCount" --output text
 
