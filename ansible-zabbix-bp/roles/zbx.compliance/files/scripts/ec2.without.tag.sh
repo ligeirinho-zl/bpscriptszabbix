@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId, Tags]" --output text | grep bp: | wc -l
 

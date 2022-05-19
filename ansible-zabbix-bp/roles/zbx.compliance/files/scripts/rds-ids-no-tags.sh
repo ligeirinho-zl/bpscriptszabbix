@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#!/usr/bin/env bash
 
 #aws configservice describe-compliance-by-resource  --resource-type AWS::RDS::DBInstance --compliance-types NON_COMPLIANT  --query 'ComplianceByResources[*].ResourceId' --output text
 

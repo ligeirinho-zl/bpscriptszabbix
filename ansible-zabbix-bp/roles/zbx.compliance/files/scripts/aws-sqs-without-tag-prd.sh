@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###############################################################################
 #################################  Maxmilhas  #################################
@@ -12,16 +12,16 @@ lista=$(aws sqs list-queues | grep -v "\[" | grep -v "\]" | grep -v "\{" | grep 
 for OUTPUT in $(aws sqs list-queues | grep -v "\[" | grep -v "\]" | grep -v "\{" | grep -v "\}" | sed -e 's/\"//g' | sed -e 's/\,//g')
 do
 
-list_tag=""    
+list_tag=""
 list_tag=$(aws sqs list-queue-tags --queue-url $OUTPUT  2> /dev/null )
 if [[ $list_tag =~ "bp" ]]
 then
-    #echo -e '\033[05;32mTem Tag bp: '$OUTPUT'\033[00;37m' 
-  
+    #echo -e '\033[05;32mTem Tag bp: '$OUTPUT'\033[00;37m'
+
 #else
-    #echo -e '\033[05;31mNão Tem Tag bp: '$OUTPUT'\033[00;37m'  
-count=$count+1    
-       
+    #echo -e '\033[05;31mNão Tem Tag bp: '$OUTPUT'\033[00;37m'
+count=$count+1
+
 fi
 #echo "==============================================================================="
 done

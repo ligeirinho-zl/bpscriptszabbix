@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 aws configservice get-compliance-details-by-config-rule --config-rule-name s3-sem-tag --compliance-types NON_COMPLIANT \
 	--query 'EvaluationResults[*].EvaluationResultIdentifier.EvaluationResultQualifier.ResourceId' \

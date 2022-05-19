@@ -1,4 +1,6 @@
+SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=””
 
 ####### Ec2 Sem Tags #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2.without.tag -o $(/etc/zabbix/scripts/ec2.without.tag.sh default)
@@ -14,9 +16,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 ####### SQS PRD Sem TAG #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.sqs.without.tag -o $(/etc/zabbix/scripts/aws-sqs-without-tag-prd.sh default)
-
-####### Lambda PRD Sem TAG #######
-0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.lambda.without.tag -o $(/etc/zabbix/scripts/aws-lambda-without-tag-prd.sh default)
 
 ####### elbv2 Loadbalancer Application Sem Tag - PRD #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k aws.prd.elbv2.without.tag -o $(/etc/zabbix/scripts/aws-elbv2-without-tag-prd.sh default)
@@ -47,3 +46,13 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 #######  Lambda Sem Tags #######aws-lambda-no-tags.sh
 0 * * * * zabbix /etc/zabbix/scripts/aws-lambda-no-tags.sh
+
+#######  ELB Total  #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k elb-total -o $(/etc/zabbix/scripts/elb-dns-total.sh default)
+
+#######  ELB no Tags  #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k elb-total-no-tags -o $(/etc/zabbix/scripts/elb-no-tags.sh default)
+
+#######  ELB no Tags DNS  #######
+0 * * * * zabbix /etc/zabbix/scripts/elb-no-tags-dns.sh
+

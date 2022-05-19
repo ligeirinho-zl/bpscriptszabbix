@@ -1,5 +1,7 @@
 - hosts: all
   become: true
+  vars:
+    - install_jq: false
   tasks:
     - name: "Include zbx.compliance"
       include_role:

@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#!/usr/bin/env bash
 
 
 aws configservice describe-compliance-by-resource  --resource-type AWS::EC2::Instance --compliance-types NON_COMPLIANT  --query 'ComplianceByResources[*].ResourceId' --output json

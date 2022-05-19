@@ -15,7 +15,7 @@ molecule create && molecule test
 
 ## Run local VM test
 ```bash
-ansible-playbook -i inventories/test.yml playbooks.yml playbooks/test.yml
+ansible-playbook -i inventories/test.yml playbooks/test.yml
 ```
 
 ## Se estiver usando uma pasta tirar a permissão de todos os users para escrever nela
