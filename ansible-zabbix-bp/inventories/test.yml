@@ -1,0 +1,2 @@
+[vm]
+192.168.0.233 ansible_user=test ansible_password=test ansible_become_user=root ansible_become_password=test

@@ -1,0 +1,22 @@
+---
+
+# install zabbix in machine test
+- name: RedHat Family install
+  block:
+    - name: install packages
+      ansible.builtin.yum:
+        name:
+          - zabbix-agent
+          - curl
+        state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: RedHat Family install
+  block:
+    - name: install packages
+      ansible.builtin.apt:
+        pkg:
+          - zabbix-agent
+          - curl
+        state: present
+  when: ansible_os_family == 'Debian'

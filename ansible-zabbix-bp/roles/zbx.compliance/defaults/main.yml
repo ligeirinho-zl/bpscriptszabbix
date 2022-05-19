@@ -1,0 +1,4 @@
+---
+install_jq: true
+scripts_path: /etc/zabbix/scripts
+install_zbx_agent: true

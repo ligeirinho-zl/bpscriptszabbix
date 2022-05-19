@@ -1,0 +1,20 @@
+root = true
+
+[*.py]
+end_of_line = lf
+charset = utf-8
+indent_style = space
+trim_trailing_whitespace = true
+indent_size = 2
+
+[*.{yaml,yml}]
+end_of_line = lf
+charset = utf-8
+indent_size = 2
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.sh]
+end_of_line = lf
+trim_trailing_whitespace = true

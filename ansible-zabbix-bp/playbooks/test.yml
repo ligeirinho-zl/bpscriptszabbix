@@ -1,0 +1,6 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: "Include zbx.compliance"
+      include_role:
+        name: ../roles/zbx.compliance
