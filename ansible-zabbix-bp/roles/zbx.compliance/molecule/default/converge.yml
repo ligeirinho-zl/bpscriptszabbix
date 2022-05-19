@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: include taks common
+      ansible.builtin.include_tasks: ../common.yml
+
+    - name: "Include zbx.compliance"
+      ansible.builtin.include_role:
+        name: zbx.compliance
+        defaults_from: main.yml
+      vars:
+        molecule_test: true

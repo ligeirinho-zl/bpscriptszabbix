@@ -1,0 +1,6 @@
+---
+#- name: Load OS Tasks
+#  ansible.builtin.include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Load Common Tasks
+  ansible.builtin.include_tasks: common.yml

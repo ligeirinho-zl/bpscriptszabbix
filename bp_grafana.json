@@ -867,7 +867,7 @@
             "filter": "AWS"
           },
           "item": {
-            "filter": "Nó Redis Sem TAG"
+            "filter": "RDS Sem TAG"
           },
           "itemTag": {
             "filter": "Application: TAG"
@@ -1030,6 +1030,7 @@
         "type": "alexanderzobnin-zabbix-datasource",
         "uid": "mRqFWOunz"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1069,12 +1070,12 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
+        "w": 2,
         "x": 18,
         "y": 1
       },
       "hideTimeOverride": true,
-      "id": 20,
+      "id": 69,
       "links": [],
       "maxDataPoints": "",
       "options": {
@@ -1095,7 +1096,7 @@
       "targets": [
         {
           "application": {
-            "filter": "TAG"
+            "filter": "ELB"
           },
           "datasource": {
             "type": "alexanderzobnin-zabbix-datasource",
@@ -1109,7 +1110,7 @@
             "filter": "AWS"
           },
           "item": {
-            "filter": "SQS Sem TAG"
+            "filter": "ELB Total"
           },
           "itemTag": {
             "filter": "Application: TAG"
@@ -1142,7 +1143,129 @@
           }
         }
       ],
-      "title": "Fila SQS",
+      "title": "Total ELB",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "mRqFWOunz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#37872D",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 0
+              },
+              {
+                "color": "#C4162A",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 2,
+        "x": 20,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 70,
+      "links": [],
+      "maxDataPoints": "",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "application": {
+            "filter": "ELB"
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "kGTw7L87k"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "host": {
+            "filter": "AWS"
+          },
+          "item": {
+            "filter": "ELB no Tags"
+          },
+          "itemTag": {
+            "filter": "Application: TAG"
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "title": "ELB Sem Tags",
       "transparent": true,
       "type": "stat"
     },
@@ -1190,8 +1313,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
-        "x": 21,
+        "w": 2,
+        "x": 22,
         "y": 1
       },
       "hideTimeOverride": true,
@@ -1860,19 +1983,15 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "fixedColor": "dark-red",
+            "mode": "fixed"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-background",
+            "inspect": false
+          },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1889,8 +2008,7 @@
                 "value": 1
               }
             ]
-          },
-          "unit": "none"
+          }
         },
         "overrides": []
       },
@@ -1905,24 +2023,20 @@
       "links": [],
       "maxDataPoints": "",
       "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+        "footer": {
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "textMode": "auto"
+        "showHeader": false
       },
       "pluginVersion": "8.5.2",
       "targets": [
         {
           "application": {
-            "filter": "TAG"
+            "filter": "Lambda"
           },
           "datasource": {
             "type": "alexanderzobnin-zabbix-datasource",
@@ -1936,7 +2050,7 @@
             "filter": "AWS"
           },
           "item": {
-            "filter": "EBS Sem TAG"
+            "filter": "Lambda sem Tags"
           },
           "itemTag": {
             "filter": "Application: TAG"
@@ -1950,7 +2064,7 @@
           "proxy": {
             "filter": ""
           },
-          "queryType": "0",
+          "queryType": "2",
           "refId": "A",
           "resultFormat": "time_series",
           "table": {
@@ -1970,8 +2084,25 @@
         }
       ],
       "title": "Lambdas Sem Tags",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Lambda sem Tags": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Value": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
       "transparent": true,
-      "type": "stat"
+      "type": "table"
     },
     {
       "datasource": {
@@ -1981,19 +2112,15 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "fixedColor": "dark-red",
+            "mode": "fixed"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-background",
+            "inspect": false
+          },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2010,40 +2137,35 @@
                 "value": 1
               }
             ]
-          },
-          "unit": "none"
+          }
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
+        "w": 4,
         "x": 18,
         "y": 6
       },
       "hideTimeOverride": true,
-      "id": 45,
+      "id": 71,
       "links": [],
       "maxDataPoints": "",
       "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+        "footer": {
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "textMode": "auto"
+        "showHeader": false
       },
       "pluginVersion": "8.5.2",
       "targets": [
         {
           "application": {
-            "filter": "TAG"
+            "filter": "ELB"
           },
           "datasource": {
             "type": "alexanderzobnin-zabbix-datasource",
@@ -2057,7 +2179,7 @@
             "filter": "AWS"
           },
           "item": {
-            "filter": "SNS Sem TAG"
+            "filter": "ELB no Tags Names"
           },
           "itemTag": {
             "filter": "Application: TAG"
@@ -2071,7 +2193,7 @@
           "proxy": {
             "filter": ""
           },
-          "queryType": "0",
+          "queryType": "2",
           "refId": "A",
           "resultFormat": "time_series",
           "table": {
@@ -2090,9 +2212,30 @@
           }
         }
       ],
-      "title": "Topics SNS",
+      "title": "ELB Sem Tags",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "ELB no Tags Names": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Lambda sem Tags": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Value": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
       "transparent": true,
-      "type": "stat"
+      "type": "table"
     },
     {
       "datasource": {
@@ -2138,8 +2281,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 21,
+        "w": 2,
+        "x": 22,
         "y": 6
       },
       "hideTimeOverride": true,
@@ -2255,6 +2398,6 @@
   "timezone": "browser",
   "title": "AWS -Brasil Prev",
   "uid": "2zxhpDbZk",
-  "version": 24,
+  "version": 30,
   "weekStart": ""
 }

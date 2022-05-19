@@ -1,0 +1,4 @@
+ansible>=5.7.1
+ansible-lint
+molecule[docker]=>3.6.1
+molecule[lint]

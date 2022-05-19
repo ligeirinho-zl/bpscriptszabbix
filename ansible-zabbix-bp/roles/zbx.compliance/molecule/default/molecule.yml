@@ -1,0 +1,17 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: jrei/systemd-ubuntu:22.04
+    pre_build_image: true
+    privileged: True
+    volume_mounts:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+provisioner:
+  name: ansible
+lint: ansible-lint
+verifier:
+  name: ansible

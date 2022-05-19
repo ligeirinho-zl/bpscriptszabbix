@@ -1,0 +1,71 @@
+---
+- name: Install JQ
+  ansible.builtin.shell: |
+    JQ=/usr/bin/jq
+    curl https://stedolan.github.io/jq/download/linux64/jq > $JQ && chmod +x $JQ
+  when: install_jq
+
+- name: Create zabbix configs
+  block:
+  - name: Check Zabbix scripts exist
+    ansible.builtin.stat:
+      path:
+    register: dir_zbx_scripts_stat
+
+  - name: Delete old Scripts
+    ansible.builtin.file:
+      state: absent
+      path: "{{ scripts_path }}"
+    when:
+      - not dir_zbx_scripts_stat.stat.exists
+
+  - name: Create a directory zabbix scripts
+    ansible.builtin.file:
+      path: "{{ scripts_path }}"
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+    when:
+      - not dir_zbx_scripts_stat.stat.exists
+
+  - name: Copy Scripts
+    ansible.builtin.copy:
+      src: files/scripts/
+      dest: "{{ scripts_path }}"
+      owner: root
+      group: root
+      mode: '0755'
+
+  - name: Check Zabbix conf.d exist
+    ansible.builtin.stat:
+      path: "/etc/zabbix/zabbix.conf.d"
+    register: dir_zbx_stat
+
+  - name: Create zabbix conf.d dir
+    ansible.builtin.file:
+      path: "/etc/zabbix/zabbix.conf.d"
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+    when:
+      - not dir_zbx_stat.stat.exists
+
+  - name: Create Zabbix config
+    ansible.builtin.template:
+      src: templates/userparameter_aws.conf.j2
+      dest: /etc/zabbix/zabbix.conf.d/userparameter_aws.conf
+      owner: root
+      group: root
+      mode: '0644'
+    notify:
+      - Restart zabbix agent
+
+- name: Create Cron Zabbix config
+  ansible.builtin.template:
+    src: templates/zabbix_sender_cron.j2
+    dest: /etc/cron.d/zabbix_sender
+    owner: root
+    group: root
+    mode: '0644'

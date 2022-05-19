@@ -1,0 +1,2 @@
+################ Total Instances ################
+UserParameter=instancias,aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId]" --output text  | wc -l

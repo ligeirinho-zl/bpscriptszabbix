@@ -1,0 +1,30 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check zabbix file exists
+      ansible.builtin.stat:
+        path: "/etc/zabbix/zabbix.conf.d/userparameter_aws.conf"
+      register: file_zbx_stat
+
+    - name: Check zabbix file exists
+      ansible.builtin.assert:
+        that:
+          - file_zbx_stat.stat.exists == True
+        success_msg: "conf zbx exists"
+        fail_msg: "conf zbx doesn't exist"
+
+    - name: Check cron job exists
+      ansible.builtin.stat:
+        path: "/etc/cron.d/zabbix_sender"
+      register: file_cron_stat
+
+    - name: Check cron job exists
+      ansible.builtin.assert:
+        that:
+          - file_cron_stat.stat.exists == True
+        success_msg: "cron exists"
+        fail_msg: "cron doesn't exist"
