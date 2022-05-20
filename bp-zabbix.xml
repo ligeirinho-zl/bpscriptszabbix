@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2022-05-19T19:35:48Z</date>
+    <date>2022-05-20T18:06:50Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -128,13 +128,26 @@
                     <interface_ref>if1</interface_ref>
                 </item>
                 <item>
-                    <name>RDS Sem TAG</name>
+                    <name>EC2 AMI IDs</name>
                     <type>TRAP</type>
-                    <key>aws.prd.redis.without.tag</key>
+                    <key>ec2-ami-ids</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>EC2 AMI Total</name>
+                    <type>TRAP</type>
+                    <key>ec2-ami-total</key>
                     <delay>0</delay>
                     <applications>
                         <application>
-                            <name>TAG</name>
+                            <name>EC2</name>
                         </application>
                     </applications>
                 </item>
@@ -145,6 +158,76 @@
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>ECS IDS no Tags</name>
+                    <type>TRAP</type>
+                    <key>ecs-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>ECS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>ECS no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>ecs-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>ECS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>ECS Total</name>
+                    <type>TRAP</type>
+                    <key>ecs-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>ECS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>EIP IDS no Tags</name>
+                    <type>TRAP</type>
+                    <key>eip-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>EIP no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>eip-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>EIP Total</name>
+                    <type>TRAP</type>
+                    <key>eip-total</key>
+                    <delay>0</delay>
                     <applications>
                         <application>
                             <name>EC2</name>
@@ -349,6 +432,63 @@
                     <applications>
                         <application>
                             <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>SG IDS no Tags</name>
+                    <type>TRAP</type>
+                    <key>sg-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>SG no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>sg-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>SG Total</name>
+                    <type>TRAP</type>
+                    <key>sg-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Snapshot no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>snapshot-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Snapshot Total</name>
+                    <type>TRAP</type>
+                    <key>snapshot-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
                         </application>
                     </applications>
                 </item>
@@ -585,6 +725,41 @@ return JSON.stringify(parsed);</params>
                         </step>
                     </preprocessing>
                     <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>VPC IDS no Tags</name>
+                    <type>TRAP</type>
+                    <key>vpc-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>VPC no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>vpc-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>VPC Total</name>
+                    <type>TRAP</type>
+                    <key>vpc-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
                 </item>
                 <item>
                     <name>Zabbix agent availability</name>

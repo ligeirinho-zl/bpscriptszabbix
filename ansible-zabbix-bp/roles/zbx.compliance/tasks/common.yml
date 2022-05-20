@@ -12,13 +12,6 @@
       path:
     register: dir_zbx_scripts_stat
 
-  - name: Delete old Scripts
-    ansible.builtin.file:
-      state: absent
-      path: "{{ scripts_path }}"
-    when:
-      - not dir_zbx_scripts_stat.stat.exists
-
   - name: Create a directory zabbix scripts
     ansible.builtin.file:
       path: "{{ scripts_path }}"
@@ -29,13 +22,16 @@
     when:
       - not dir_zbx_scripts_stat.stat.exists
 
-  - name: Copy Scripts
-    ansible.builtin.copy:
+  - name: Synchronization scripts
+    ansible.posix.synchronize:
       src: files/scripts/
       dest: "{{ scripts_path }}"
-      owner: root
-      group: root
-      mode: '0755'
+      delete: true
+
+  - name: Change Permissions
+    ansible.builtin.shell: |
+      chown -R root:root {{ scripts_path }}
+      chmod 755 {{ scripts_path }} -R
 
   - name: Check Zabbix conf.d exist
     ansible.builtin.stat:

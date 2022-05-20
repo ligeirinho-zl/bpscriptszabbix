@@ -1,0 +1,32 @@
+Running Total Instances,instancias
+Instancias Sem TAG,ec2.without.tag
+Buckets S3,s3.prd
+Buckets S3 Sem Tag,aws.prd.s3.without.tag
+Buckets S3 Sem Criptografia,s3..prd.without.encrypt
+RDS Total,rds-ids-total
+RDS Sem TAG,aws.prd.rds.without.tag
+lambda-total,lambda-total
+EC2 IDS,ec2-ids-no-tags
+S3 Names,s3.prd.names
+S3 unencrypted IDS,S3-unencrypted-ids
+RDS IDS,rds-ids-no-tags
+Lambda sem Tags,lamba-no-tags
+ELB Total,elb-total
+ELB no Tags,elb-total-no-tags
+ELB no Tags Names,elb-no-tags-names
+EC2 AMI Total,ec2-ami-total
+EC2 AMI IDs,ec2-ami-ids
+ECS Total,ecs-total
+ECS no Tags Total,ecs-no-tags-total
+ECS IDS no Tags,ecs-ids-no-tag
+VPC Total,vpc-total
+VPC no Tags Total,vpc-no-tags-total
+VPC IDS no Tags,vpc-ids-no-tag
+EIP Total,eip-total
+EIP no Tags Total,eip-no-tags-total
+EIP IDS no Tags,eip-ids-no-tag
+SG Total,sg-total
+SG no Tags Total,sg-no-tags-total
+SG IDS no Tags,sg-ids-no-tag
+Snapshot Total,snapshot-total
+Snapshot no Tags Total,snapshot-no-tags-total
