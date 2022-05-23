@@ -35,8 +35,8 @@ MAILTO=””
 #######  Total Lambdas #######lambda-total.sh
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k lambda-total -o $(/etc/zabbix/scripts/lambda-total.sh default)
 
-#######  Lambda Sem Tags #######aws-lambda-no-tags.sh
-0 * * * * zabbix /etc/zabbix/scripts/aws-lambda-no-tags.sh
+#######  Lambda Sem Tags #######
+0 * * * * zabbix /etc/zabbix/scripts/lambda-name-no-tags.sh
 
 #######  ELB Total  #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k elb-total -o $(/etc/zabbix/scripts/elb-dns-total.sh default)
