@@ -6,11 +6,12 @@ Buckets S3 Sem Criptografia,s3..prd.without.encrypt
 RDS Total,rds-ids-total
 RDS Sem TAG,aws.prd.rds.without.tag
 lambda-total,lambda-total
-EC2 IDS,ec2-ids-no-tags
-S3 Names,s3.prd.names
-S3 unencrypted IDS,S3-unencrypted-ids
-RDS IDS,rds-ids-no-tags
 Lambda sem Tags,lamba-no-tags
+Lambda no Tags Total,lamba-no-tag-total
+EC2 IDs,ec2-ids-no-tags
+S3 Names,s3.prd.names
+S3 unencrypted IDs,S3-unencrypted-ids
+RDS IDs,rds-ids-no-tags
 ELB Total,elb-total
 ELB no Tags,elb-total-no-tags
 ELB no Tags Names,elb-no-tags-names
@@ -18,15 +19,22 @@ EC2 AMI Total,ec2-ami-total
 EC2 AMI IDs,ec2-ami-ids
 ECS Total,ecs-total
 ECS no Tags Total,ecs-no-tags-total
-ECS IDS no Tags,ecs-ids-no-tag
+ECS IDs no Tags,ecs-ids-no-tag
 VPC Total,vpc-total
 VPC no Tags Total,vpc-no-tags-total
-VPC IDS no Tags,vpc-ids-no-tag
+VPC IDs no Tags,vpc-ids-no-tag
 EIP Total,eip-total
 EIP no Tags Total,eip-no-tags-total
-EIP IDS no Tags,eip-ids-no-tag
+EIP IDs no Tags,eip-ids-no-tag
 SG Total,sg-total
 SG no Tags Total,sg-no-tags-total
-SG IDS no Tags,sg-ids-no-tag
+SG IDs no Tags,sg-ids-no-tag
 Snapshot Total,snapshot-total
 Snapshot no Tags Total,snapshot-no-tags-total
+Snapshot IDs no Tags,snapshot-ids-no-tag
+Snapshot Public Total,snapshot-public-total
+Snapshot Public no Tags,snapshot-public-no-tags-total
+Snapshot Public IDs no Tags,snapshot-public-ids-no-tag
+Snapshot DBs Total,snapshot-db-total
+Snapshot DBs no Tags,snapshot-db-no-tags-total
+Snapshot DBs IDs no Tags,snapshot-db-ids-no-tag

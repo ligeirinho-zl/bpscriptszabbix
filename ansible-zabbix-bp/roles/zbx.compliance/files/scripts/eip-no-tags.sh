@@ -1,13 +1,33 @@
 #!/usr/bin/env bash
 
-total=$(`dirname "$0"`/eip-total.sh)
+#bp:negocio:nomeJornada
+#bp:negocio:nomeSquad
+#bp:tecnico:identificacaoDoServico
+#bp:tecnico:descricaoDoServico
+#bp:tecnico:ambiente
 
-compliance=$(aws ec2 describe-addresses \
-  --filters Name=tag:'bp:negocio:nomeJornada' \
-  Name=tag:'bp:negocio:nomeSquad' \
-  Name=tag:'bp:tecnico:identificacaoDoServico' \
-  Name=tag:'bp:tecnico:descricaoDoServico' \
-  Name=tag:'bp:tecnico:ambiente' \
-  --query "Snapshots[*].SnapshotId" | grep " " | wc -l)
+declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
+declare -r totalTags=${#tagsVerify[@]}
+declare -r JSONTMP=/tmp/zbx-ec2-eip-no-tags-das56da565.json
 
-echo "$(expr $total - $compliance)"
+aws ec2 describe-addresses --query 'Addresses[*]' --output json > $JSONTMP
+
+jsonArrayLength=$(jq '. | length' $JSONTMP)
+
+for (( i=0; i<$jsonArrayLength ; i++ )); do
+  tagsEIPCount=$(jq ".[$i] | .Tags | length" $JSONTMP)
+  COUNTER=0
+  for (( j=0; j < $tagsEIPCount ; j++ )); do
+    tag=$(jq ".[$i] | .Tags | .[$j] | .Key" $JSONTMP | grep -oP '(?<=").*(?=")')
+    if [[ -v tagsVerify[$tag] ]]; then
+      let COUNTER++
+    fi
+  done
+  if [[ $COUNTER -ne $totalTags ]]; then
+    let TOTALNOIDS++
+  fi
+done
+
+echo $TOTALNOIDS
+
+rm -f $JSONTMP

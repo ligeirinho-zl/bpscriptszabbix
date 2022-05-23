@@ -10,15 +10,13 @@ declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, [
 declare -r totalTags=${#tagsVerify[@]}
 declare -r JSONTMP=/tmp/zbx-ec2-eip-ids-9893128391283.json
 
-set -e
-
 aws ec2 describe-addresses --query 'Addresses[*]' --output json > $JSONTMP
 
 jsonArrayLength=$(jq '. | length' $JSONTMP)
 
 for (( i=0; i<$jsonArrayLength ; i++ )); do
   idIP=$(jq ".[$i] | .PublicIp" $JSONTMP | grep -oP '(?<=").*(?=")')
-  tagsEIPCount=$(jq ".[(($i-1))] | .Tags | length" $JSONTMP)
+  tagsEIPCount=$(jq ".[$i] | .Tags | length" $JSONTMP)
   COUNTER=0
   for (( j=0; j < $tagsEIPCount ; j++ )); do
     tag=$(jq ".[$i] | .Tags | .[$j] | .Key" $JSONTMP | grep -oP '(?<=").*(?=")')
@@ -31,4 +29,4 @@ for (( i=0; i<$jsonArrayLength ; i++ )); do
   fi
 done
 
-rm -f $TEMPFILE
+rm -f $JSONTMP
