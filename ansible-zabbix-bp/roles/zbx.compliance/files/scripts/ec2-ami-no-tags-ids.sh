@@ -10,8 +10,6 @@ declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, [
 declare -r totalTags=${#tagsVerify[@]}
 declare -r JSONTMP=/tmp/zbx-ec2-ami-ids-898sd8as712.json
 
-set -e
-
 aws ec2 describe-images --owners self --query 'Images[*].[ImageId,Tags[].Key]' --output json > $JSONTMP
 
 jsonArrayLength=$(jq '. | length' $JSONTMP)
@@ -30,4 +28,4 @@ for (( i=0; i<$jsonArrayLength ; i++ )); do
   fi
 done
 
-rm -f $TEMPFILE
+rm -f $JSONTMP

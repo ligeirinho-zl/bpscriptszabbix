@@ -48,7 +48,7 @@ MAILTO=””
 0 * * * * zabbix /etc/zabbix/scripts/elb-no-tags-dns.sh
 
 #######  AMI Total  #######
-0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2-ami-total -o $(/etc/zabbix/scripts/ec2-ami-no-tags-ids.sh default)
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2-ami-total -o $(/etc/zabbix/scripts/ec2-ami-total.sh default)
 
 #######  AMI No Tags IDs  #######
 0 * * * * zabbix /etc/zabbix/scripts/ec2-ami-no-tags-ids.sh
@@ -90,8 +90,8 @@ MAILTO=””
 0 * * * * zabbix /etc/zabbix/scripts/sg-ids-no-tags.sh
 
 #######  Snapshot no Tags count #######
-0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-no-tags-total -o $(/etc/zabbix/scripts/snapshot-no-tags.sh default)
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-no-tags-total -o $(/etc/zabbix/scripts/snapshot-no-tags.sh default)
 
 #######  Snapshot Total  #######
-0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-total -o $(/etc/zabbix/scripts/snapshot-total.sh default)
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-total -o $(/etc/zabbix/scripts/snapshot-total.sh default)
 
