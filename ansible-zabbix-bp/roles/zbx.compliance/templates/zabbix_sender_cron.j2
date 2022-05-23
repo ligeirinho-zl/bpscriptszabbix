@@ -38,6 +38,9 @@ MAILTO=””
 #######  Lambda Sem Tags #######
 0 * * * * zabbix /etc/zabbix/scripts/lambda-name-no-tags.sh
 
+#######  Lambda no Tags total #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k lamba-no-tag-total -o $(/etc/zabbix/scripts/lambda-no-tags.sh default)
+
 #######  ELB Total  #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k elb-total -o $(/etc/zabbix/scripts/elb-dns-total.sh default)
 
@@ -89,9 +92,30 @@ MAILTO=””
 #######  SG IDs no Tags  #######
 0 * * * * zabbix /etc/zabbix/scripts/sg-ids-no-tags.sh
 
-#######  Snapshot no Tags count #######
-0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-no-tags-total -o $(/etc/zabbix/scripts/snapshot-no-tags.sh default)
-
 #######  Snapshot Total  #######
-0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-total -o $(/etc/zabbix/scripts/snapshot-total.sh default)
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-total -o $(/etc/zabbix/scripts/snapshot-private-total.sh default)
+
+#######  Snapshot no Tags count #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-no-tags-total -o $(/etc/zabbix/scripts/snapshot-private-no-tags.sh default)
+
+#######  Snapshot IDs no Tags  #######
+0 * * * * zabbix /etc/zabbix/scripts/snapshot-private-ids-no-tags.sh
+
+#######  Snapshot Public Total  #######
+0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-public-total -o $(/etc/zabbix/scripts/snapshot-public-total.sh default)
+
+#######  Snapshot Public no Tags count #######
+0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-public-no-tags-total -o $(/etc/zabbix/scripts/snapshot-public-no-tags.sh default)
+
+#######  Snapshot Public IDs no Tags  #######
+0 0 * * * zabbix /etc/zabbix/scripts/snapshot-public-ids-no-tags.sh
+
+#######  Snapshot DB Total  #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-db-total -o $(/etc/zabbix/scripts/snapshot-db-total.sh default)
+
+#######  Snapshot DB no Tags count #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-db-no-tags-total -o $(/etc/zabbix/scripts/snapshot-db-no-tags.sh default)
+
+#######  Snapshot DB IDs no Tags  #######
+0 * * * * zabbix /etc/zabbix/scripts/snapshot-db-ids-no-tags.sh
 
