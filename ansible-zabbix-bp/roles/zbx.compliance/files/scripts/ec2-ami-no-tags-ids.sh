@@ -8,7 +8,7 @@
 
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
-declare -r JSONTMP=/tmp/ec2-ami-ids-898sd8as712.json
+declare -r JSONTMP=/tmp/zbx-ec2-ami-ids-898sd8as712.json
 
 set -e
 
@@ -16,11 +16,11 @@ aws ec2 describe-images --owners self --query 'Images[*].[ImageId,Tags[].Key]' -
 
 jsonArrayLength=$(jq '. | length' $JSONTMP)
 
-for i in $jsonArrayLength; do
-  idAMI=$(jq ".[(($i-1))] | .[0]" $JSONTMP | grep -oP '(?<=").*(?=")')
-  tagsAMICount=$(jq ".[(($i-1))] | .[1] | length" $JSONTMP)
-  for j in $tagsAMICount; do
-    tag=$(jq ".[(($i-1))] | .[1] | .[(($j-1))]" $JSONTMP | grep -oP '(?<=").*(?=")')
+for (( i=0; i<$jsonArrayLength ; i++ )); do
+  idAMI=$(jq ".[$i] | .[0]" $JSONTMP | grep -oP '(?<=").*(?=")')
+  tagsAMICount=$(jq ".[$i] | .[1] | length" $JSONTMP)
+  for (( j=0; j < $tagsAMICount ; j++ )); do
+    tag=$(jq ".[$i] | .[1] | .[$j]" $JSONTMP | grep -oP '(?<=").*(?=")')
     if [[ -v tagsVerify[$tag] ]]; then
       let "COUNTER++"
     fi

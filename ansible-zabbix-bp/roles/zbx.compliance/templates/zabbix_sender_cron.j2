@@ -51,7 +51,7 @@ MAILTO=””
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ec2-ami-total -o $(/etc/zabbix/scripts/ec2-ami-no-tags-ids.sh default)
 
 #######  AMI No Tags IDs  #######
-0 * * * * zabbix /etc/zabbix/scripts/ec2-ami-ids.sh
+0 * * * * zabbix /etc/zabbix/scripts/ec2-ami-no-tags-ids.sh
 
 #######  ECS Total  #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ecs-total -o $(/etc/zabbix/scripts/ecs-total.sh default)
