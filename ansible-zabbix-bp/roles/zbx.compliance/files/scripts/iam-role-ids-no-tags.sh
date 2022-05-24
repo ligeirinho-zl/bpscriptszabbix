@@ -25,7 +25,5 @@ do
   fi
 done
 
-echo $(cat $TEMPFILECOMPLIANCE)
-
 unlink $TEMPFILE
 rm -f $TEMPFILE
