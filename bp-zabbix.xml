@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2022-05-23T15:19:18Z</date>
+    <date>2022-05-24T14:53:25Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -23,16 +23,22 @@
             </groups>
             <interfaces>
                 <interface>
-                    <ip>15.229.16.183</ip>
+                    <ip>54.233.97.75</ip>
                     <interface_ref>if1</interface_ref>
                 </interface>
             </interfaces>
             <applications>
                 <application>
+                    <name>CloudFront</name>
+                </application>
+                <application>
                     <name>CloudWatch</name>
                 </application>
                 <application>
                     <name>CodeDeploy</name>
+                </application>
+                <application>
+                    <name>Elastic Beanstalk</name>
                 </application>
                 <application>
                     <name>ELB</name>
@@ -126,6 +132,41 @@
                         </step>
                     </preprocessing>
                     <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Cloudfront Names no Tags</name>
+                    <type>TRAP</type>
+                    <key>cloudfront-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>CloudFront</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cloudfront no Tags</name>
+                    <type>TRAP</type>
+                    <key>cloudfront-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>CloudFront</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cloudfront Total</name>
+                    <type>TRAP</type>
+                    <key>cloudfront-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>CloudFront</name>
+                        </application>
+                    </applications>
                 </item>
                 <item>
                     <name>EC2 AMI IDs</name>
@@ -235,6 +276,41 @@
                     </applications>
                 </item>
                 <item>
+                    <name>Elastic Beanstalk Names no Tags</name>
+                    <type>TRAP</type>
+                    <key>elasticbeanstalk-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Elastic Beanstalk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Elastic Beanstalk no Tags</name>
+                    <type>TRAP</type>
+                    <key>elasticbeanstalk-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>Elastic Beanstalk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Elastic Beanstalk Total</name>
+                    <type>TRAP</type>
+                    <key>elasticbeanstalk-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>Elastic Beanstalk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
                     <name>ELB no Tags Names</name>
                     <type>TRAP</type>
                     <key>elb-no-tags-names</key>
@@ -266,6 +342,41 @@
                     <applications>
                         <application>
                             <name>ELB</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IAM Role Names no Tags</name>
+                    <type>TRAP</type>
+                    <key>iam-roles-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>IAM</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IAM Role no Tags</name>
+                    <type>TRAP</type>
+                    <key>iam-roles-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>IAM</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IAM Role Total</name>
+                    <type>TRAP</type>
+                    <key>iam-roles-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>IAM</name>
                         </application>
                     </applications>
                 </item>
@@ -326,6 +437,17 @@
                             </dependencies>
                         </trigger>
                     </triggers>
+                </item>
+                <item>
+                    <name>Lambda no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>lamba-no-tag-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>Lambda</name>
+                        </application>
+                    </applications>
                 </item>
                 <item>
                     <name>Lambda sem Tags</name>
@@ -471,9 +593,68 @@
                     </applications>
                 </item>
                 <item>
+                    <name>Snapshot DBs IDs no Tags</name>
+                    <type>TRAP</type>
+                    <key>snapshot-db-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Snapshot DBs no Tags</name>
+                    <type>TRAP</type>
+                    <key>snapshot-db-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Snapshot DBs Total</name>
+                    <type>TRAP</type>
+                    <key>snapshot-db-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Snapshot IDs no Tags</name>
+                    <type>TRAP</type>
+                    <key>snapshot-ids-no-tag</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
                     <name>Snapshot no Tags Total</name>
                     <type>TRAP</type>
                     <key>snapshot-no-tags-total</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Snapshot Public Total</name>
+                    <type>TRAP</type>
+                    <key>snapshot-public-total</key>
                     <delay>0</delay>
                     <applications>
                         <application>
