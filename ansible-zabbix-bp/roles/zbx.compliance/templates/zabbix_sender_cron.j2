@@ -104,12 +104,6 @@ MAILTO=””
 #######  Snapshot Public Total  #######
 0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-public-total -o $(/etc/zabbix/scripts/snapshot-public-total.sh default)
 
-#######  Snapshot Public no Tags count #######
-0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-public-no-tags-total -o $(/etc/zabbix/scripts/snapshot-public-no-tags.sh default)
-
-#######  Snapshot Public IDs no Tags  #######
-0 0 * * * zabbix /etc/zabbix/scripts/snapshot-public-ids-no-tags.sh
-
 #######  Snapshot DB Total  #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-db-total -o $(/etc/zabbix/scripts/snapshot-db-total.sh default)
 
@@ -118,4 +112,31 @@ MAILTO=””
 
 #######  Snapshot DB IDs no Tags  #######
 0 * * * * zabbix /etc/zabbix/scripts/snapshot-db-ids-no-tags.sh
+
+#######  IAM Roles Total  #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k iam-roles-total -o $(/etc/zabbix/scripts/iam-role-total.sh default)
+
+#######  IAM Roles no Tags count #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k iam-roles-no-tags-total -o $(/etc/zabbix/scripts/iam-role-no-tags.sh default)
+
+#######  IAM Roles IDs no Tags  #######
+0 * * * * zabbix /etc/zabbix/scripts/iam-role-ids-no-tags.sh
+
+#######  Cloudfront Total  #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k cloudfront-total -o $(/etc/zabbix/scripts/cloudfront-total.sh default)
+
+#######  Cloudfront no Tags count #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k cloudfront-no-tags-total -o $(/etc/zabbix/scripts/cloudfront-no-tags-total.sh default)
+
+#######  Cloudfront IDs no Tags  #######
+0 * * * * zabbix /etc/zabbix/scripts/cloudfront-ids-no-tag.sh
+
+#######  Elastic Beanstalk Total  #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k elasticbeanstalk-total -o $(/etc/zabbix/scripts/elasticbeanstalk-total.sh default)
+
+#######  Elastic Beanstalk no Tags count #######
+0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k elasticbeanstalk-no-tags-total -o $(/etc/zabbix/scripts/elasticbeanstalk-no-tags-total.sh default)
+
+#######  Elastic Beanstalk IDs no Tags  #######
+0 * * * * zabbix /etc/zabbix/scripts/elasticbeanstalk-ids-no-tag.sh
 
