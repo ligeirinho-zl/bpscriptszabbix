@@ -104,9 +104,6 @@ MAILTO=””
 #######  Snapshot IDs no Tags  #######
 0 * * * * zabbix /etc/zabbix/scripts/snapshot-private-ids-no-tags.sh
 
-#######  Snapshot Public Total  #######
-0 0 * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-public-total -o $(/etc/zabbix/scripts/snapshot-public-total.sh default)
-
 #######  Snapshot DB Total  #######
 0 * * * * zabbix /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k snapshot-db-total -o $(/etc/zabbix/scripts/snapshot-db-total.sh default)
 
