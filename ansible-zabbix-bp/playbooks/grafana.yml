@@ -1,0 +1,26 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+    ../vars/grafana.yml
+  tasks:
+    - role: cloudalchemy.grafana
+      vars:
+        grafana_datasources:
+          - name: Zabbix
+            type: datasource
+            url: 'http://{{ zabbix_server_web }}/api_jsonrpc.php'
+            basicAuth: false
+        grafana_plugins:
+          - public/plugins/alexanderzobnin-zabbix-app
+        grafana_security:
+          admin_user: admin
+          admin_password: "{{ grafana_password }}"
+
+    - name: Import Grafana dashboard
+      community.grafana.grafana_dashboard:
+        grafana_url: "{{ grafana_url }}"
+        grafana_api_key: "{{ grafana_api_key }}"
+        state: present
+        commit_message: Updated by ansible
+        overwrite: yes
+        path: ../../bp_grafana.json
