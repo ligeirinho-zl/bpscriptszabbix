@@ -9,4 +9,3 @@ aws configservice describe-compliance-by-resource  \
 do
 	/usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k rds-ids-no-tags  -o $line
 done
-
