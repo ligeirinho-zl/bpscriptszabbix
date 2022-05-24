@@ -1,0 +1,41 @@
+---
+- name: Install Zabbix Server
+  hosts: zabbix-server
+  become: yes
+  roles:
+    - role: community.zabbix.zabbix_server
+      zabbix_server_version: 6.0
+      zabbix_server_version_minor: *
+      zabbix_server_install_recommends: false
+      zabbix_server_database: pgsql
+      zabbix_server_database_long: postgresql
+      zabbix_server_dbport: 5432
+      zabbix_server_dbhost:
+      zabbix_server_dbhost_run_install: false
+      zabbix_server_dbpassword:
+      zabbix_server_privileged_host: '%'
+      zabbix_server_pgsql_login_host:
+      zabbix_server_pgsql_login_user: postgres
+      zabbix_server_pgsql_login_password:
+      zabbix_server_pgsql_login_port: 5432
+
+- name: Install Zabbix Web
+  hosts: zabbix-web
+  become: yes
+  roles:
+    - role: geerlingguy.apache
+    - role: geerlingguy.php
+      php_memory_limit: "128M"
+      php_max_execution_time: "300"
+      php_upload_max_filesize: "256M"
+      php_packages:
+        - php
+        - php-fpm
+        - php-acpu
+    - role: geerlingguy.apache-php-fpm
+    - role: community.zabbix.zabbix_web
+      zabbix_api_server_url:
+      zabbix_server_hostname:
+      zabbix_server_database: pgsql
+      zabbix_server_database_long: postgresql
+      zabbix_server_dbport: 5432

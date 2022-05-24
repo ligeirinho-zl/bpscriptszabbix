@@ -16,6 +16,7 @@ ELB Total,elb-total
 ELB no Tags,elb-total-no-tags
 ELB no Tags Names,elb-no-tags-names
 EC2 AMI Total,ec2-ami-total
+EC2 AMI no Tags Total,ec2-ami-no-tags-total
 EC2 AMI IDs,ec2-ami-ids
 ECS Total,ecs-total
 ECS no Tags Total,ecs-no-tags-total

@@ -1,0 +1,9 @@
+---
+- name: Install Zabbix agent
+  hosts: zbx
+  become: yes
+  collections:
+    - community.zabbix
+  roles:
+    - role: zabbix_agent
+      zabbix_agent_server: 54.207.205.224
