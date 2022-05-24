@@ -1,5 +1,4 @@
-- hosts: localhost
-  connection: local
+- hosts: grafana
   vars_files:
     ../vars/grafana.yml
   tasks:

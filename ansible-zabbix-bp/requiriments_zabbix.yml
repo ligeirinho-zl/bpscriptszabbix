@@ -13,3 +13,4 @@ collections:
 
 roles:
   - name: cloudalchemy.grafana
+  - name: galaxyproject.postgresql

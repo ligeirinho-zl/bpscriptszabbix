@@ -8,7 +8,7 @@
 
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
-declare -r JSONTMP=/tmp/zbx-ec2-ami-ids-898sd8as712.json
+declare -r JSONTMP=/tmp/zbx-ec2-ami-total-898sd8as712.json
 
 aws ec2 describe-images --owners self --query 'Images[*].[ImageId,Tags[].Key]' --output json > $JSONTMP
 
