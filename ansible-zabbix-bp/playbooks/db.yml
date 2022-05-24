@@ -1,0 +1,42 @@
+- hosts: db
+  become: true
+  remote_user: root
+  vars:
+    postgresql_version: 14
+    postgresql_conf:
+      # Memory Configuration
+      - shared_buffers: "'2GB'"
+      - effective_cache_size: "'6GB'"
+      - work_mem: "'14MB'"
+      - maintenance_work_mem: "'410MB'"
+      # Checkpoint Related Configuration
+      - min_wal_size: "'2GB'"
+      - max_wal_size: "'3GB'"
+      - checkpoint_completion_target: 0.5
+      - wal_buffers: -1
+      # Storage Configuration
+      - random_page_cost: 1.1
+      - effective_io_concurrency: 200
+      # Worker Processes Configuration
+      - max_worker_processes: 8
+      - max_parallel_workers_per_gather: 2
+      - max_parallel_workers: 2
+      # General config
+      - listen_addresses: "*"
+      - max_connections: 150
+    postgresql_pg_hba_conf:
+      - host all all 10.0.0.0/24 md5
+  roles:
+    - postgresql
+
+    - name: Create Database
+      community.postgresql.postgresql_db:
+        name: zabbix
+
+    - name: Create rails user, set MD5-hashed password, grant privs
+      community.postgresql.postgresql_user:
+        name: zabbix
+        db: zabbix
+        password:
+        comment: Zabbix connection User
+
