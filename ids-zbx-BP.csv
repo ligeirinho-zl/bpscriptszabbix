@@ -38,3 +38,12 @@ Snapshot Public IDs no Tags,snapshot-public-ids-no-tag
 Snapshot DBs Total,snapshot-db-total
 Snapshot DBs no Tags,snapshot-db-no-tags-total
 Snapshot DBs IDs no Tags,snapshot-db-ids-no-tag
+IAM Role Total,iam-roles-total
+IAM Role no Tags,iam-roles-no-tags-total
+IAM Role Names no Tags,iam-roles-ids-no-tag
+Cloudfront Total,cloudfront-total
+Cloudfront no Tags,cloudfront-no-tags-total
+Cloudfront Names no Tags,cloudfront-ids-no-tag
+Elastic Beanstalk Total,elasticbeanstalk-total
+Elastic Beanstalk no Tags,elasticbeanstalk-no-tags-total
+Elastic Beanstalk Names no Tags,elasticbeanstalk-ids-no-tag

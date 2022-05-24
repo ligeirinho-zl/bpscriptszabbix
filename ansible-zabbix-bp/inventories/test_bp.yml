@@ -1,2 +1,2 @@
 [zbx]
-ec2-15-229-16-183.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
+ec2-54-233-97-75.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
