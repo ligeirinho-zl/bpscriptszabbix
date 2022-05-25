@@ -14,7 +14,7 @@ declare -r TEMPFILECOMPLIANCE=/tmp/zbx-compliance-distributions-no-tags-c98as5a.
 aws cloudfront list-distributions --query "DistributionList.Items[].ARN" --output json | grep -oP '(?<=").*(?=")' | while read distARN || [[ -n $distARN ]];
 do
   echo 0 > $TEMPFILE
-  aws cloudfront list-tags-for-resource --resource $distARN --query 'Tags' | jq -c '.Items[] | .key' | grep -oP '(?<=").*(?=")' | while read tags || [[ -n $tags ]];
+  aws cloudfront list-tags-for-resource --resource $distARN --query 'Tags.Items[].Key' | grep -oP '(?<=").*(?=")' | while read tags || [[ -n $tags ]];
   do
     if [[ -v tagsVerify[$tags] ]]; then
       COUNTER=$[$(cat $TEMPFILE) + 1]
