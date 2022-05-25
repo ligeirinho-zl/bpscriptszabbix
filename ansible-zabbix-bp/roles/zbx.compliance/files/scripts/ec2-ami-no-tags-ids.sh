@@ -10,15 +10,15 @@ declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, [
 declare -r totalTags=${#tagsVerify[@]}
 declare -r JSONTMP=/tmp/zbx-ec2-ami-ids-hdf454sdfds45.json
 
-aws ec2 describe-images --owners self --query 'Images[*].[ImageId,Tags[].Key]' --output json > $JSONTMP
+aws ec2 describe-images --owners self --query 'Images[*]' --output json > $JSONTMP
 
 jsonArrayLength=$(jq '. | length' $JSONTMP)
 
 for (( i=0; i<$jsonArrayLength ; i++ )); do
-  idAMI=$(jq ".[$i] | .[0]" $JSONTMP | grep -oP '(?<=").*(?=")')
-  tagsAMICount=$(jq ".[$i] | .[1] | length" $JSONTMP)
+  idAMI=$(jq ".[$i] | .ImageId" $JSONTMP | grep -oP '(?<=").*(?=")')
+  tagsAMICount=$(jq ".[$i] | .Tags | length" $JSONTMP)
   for (( j=0; j < $tagsAMICount ; j++ )); do
-    tag=$(jq ".[$i] | .[1] | .[$j]" $JSONTMP | grep -oP '(?<=").*(?=")')
+    tag=$(jq ".[$i] | .Tags | .[$j] | .Key" $JSONTMP | grep -oP '(?<=").*(?=")')
     if [[ -v tagsVerify[$tag] ]]; then
       let "COUNTER++"
     fi
