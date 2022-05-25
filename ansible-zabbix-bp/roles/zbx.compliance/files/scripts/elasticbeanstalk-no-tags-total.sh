@@ -27,8 +27,15 @@ do
   fi
 done
 
-echo $(cat $TEMPFILECOMPLIANCE)
+echo $(cat $TEMPFILECOMPLIANCE 2>/dev/null || echo 0)
 
-unlink $TEMPFILE
-rm -f $TEMPFILE
-rm -f $TEMPFILECOMPLIANCE
+if [ -f "$TEMPFILE" ]
+then
+  unlink $TEMPFILE
+  rm -f $TEMPFILE
+fi
+
+if [ -f "$TEMPFILECOMPLIANCE" ]
+then
+  rm -f $TEMPFILECOMPLIANCE
+fi

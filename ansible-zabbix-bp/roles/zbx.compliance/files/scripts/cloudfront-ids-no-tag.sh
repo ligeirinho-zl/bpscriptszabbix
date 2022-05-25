@@ -25,5 +25,8 @@ do
   fi
 done
 
-unlink $TEMPFILE
-rm -f $TEMPFILE
+if [ -f "$TEMPFILE" ]
+then
+  unlink $TEMPFILE
+  rm -f $TEMPFILE
+fi
