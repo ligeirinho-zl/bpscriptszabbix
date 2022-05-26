@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2022-05-24T14:53:25Z</date>
+    <date>2022-05-26T20:42:35Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -175,6 +175,17 @@
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>EC2 AMI no Tags Total</name>
+                    <type>TRAP</type>
+                    <key>ec2-ami-no-tags-total</key>
+                    <delay>0</delay>
                     <applications>
                         <application>
                             <name>EC2</name>
@@ -644,17 +655,6 @@
                     <name>Snapshot no Tags Total</name>
                     <type>TRAP</type>
                     <key>snapshot-no-tags-total</key>
-                    <delay>0</delay>
-                    <applications>
-                        <application>
-                            <name>EC2</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Snapshot Public Total</name>
-                    <type>TRAP</type>
-                    <key>snapshot-public-total</key>
                     <delay>0</delay>
                     <applications>
                         <application>

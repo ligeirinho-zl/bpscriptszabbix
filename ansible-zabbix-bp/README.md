@@ -27,3 +27,11 @@ chmod o-w .
 ```bash
 export ANSIBLE_HOST_KEY_CHECKING=False
 ```
+
+## Executar os playbooks
+
+Requirements in ansible master
+
+```bash
+libpq-dev
+```

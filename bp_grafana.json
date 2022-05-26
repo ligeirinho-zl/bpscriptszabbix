@@ -51,8 +51,8 @@
       },
       "gridPos": {
         "h": 1,
-        "w": 22,
-        "x": 1,
+        "w": 24,
+        "x": 0,
         "y": 0
       },
       "id": 89,
@@ -62,27 +62,6 @@
       },
       "pluginVersion": "8.5.2",
       "title": "Compliance Brasil Prev",
-      "transparent": true,
-      "type": "text"
-    },
-    {
-      "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "kGTw7L87k"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 1
-      },
-      "id": 93,
-      "options": {
-        "content": "\n\n\n",
-        "mode": "html"
-      },
-      "pluginVersion": "8.5.2",
-      "title": "#############################################################################################################################################################################################################",
       "transparent": true,
       "type": "text"
     },
@@ -128,7 +107,7 @@
         "h": 5,
         "w": 2,
         "x": 0,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 33,
@@ -249,7 +228,7 @@
         "h": 5,
         "w": 2,
         "x": 2,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 51,
@@ -371,7 +350,7 @@
         "h": 5,
         "w": 2,
         "x": 4,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 76,
@@ -493,7 +472,7 @@
         "h": 5,
         "w": 2,
         "x": 6,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 80,
@@ -615,7 +594,7 @@
         "h": 5,
         "w": 2,
         "x": 8,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 69,
@@ -737,7 +716,7 @@
         "h": 5,
         "w": 2,
         "x": 10,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 70,
@@ -859,7 +838,7 @@
         "h": 5,
         "w": 2,
         "x": 12,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 73,
@@ -981,7 +960,7 @@
         "h": 5,
         "w": 2,
         "x": 14,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 74,
@@ -1009,7 +988,7 @@
           },
           "datasource": {
             "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "kGTw7L87k"
+            "uid": "mRqFWOunz"
           },
           "functions": [],
           "group": {
@@ -1019,7 +998,7 @@
             "filter": "AWS"
           },
           "item": {
-            "filter": "EC2 AMI IDs"
+            "filter": "EC2 AMI no Tags Total"
           },
           "itemTag": {
             "filter": "Application: TAG"
@@ -1033,7 +1012,7 @@
           "proxy": {
             "filter": ""
           },
-          "queryType": "2",
+          "queryType": "0",
           "refId": "A",
           "resultFormat": "time_series",
           "table": {
@@ -1053,20 +1032,7 @@
         }
       ],
       "title": "AMI Sem Tag",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {
-            "mode": "reduceRow",
-            "reduce": {
-              "include": [
-                "EC2 AMI IDs"
-              ],
-              "reducer": "count"
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "transparent": true,
       "type": "stat"
     },
@@ -1117,7 +1083,7 @@
         "h": 5,
         "w": 2,
         "x": 16,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 81,
@@ -1239,7 +1205,7 @@
         "h": 5,
         "w": 2,
         "x": 18,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 82,
@@ -1362,7 +1328,7 @@
         "h": 5,
         "w": 2,
         "x": 20,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 110,
@@ -1485,7 +1451,7 @@
         "h": 5,
         "w": 2,
         "x": 22,
-        "y": 2
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 109,
@@ -1600,7 +1566,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 7
+        "y": 6
       },
       "id": 68,
       "options": {
@@ -1743,7 +1709,7 @@
         "h": 3,
         "w": 4,
         "x": 4,
-        "y": 7
+        "y": 6
       },
       "hideTimeOverride": true,
       "id": 78,
@@ -1876,7 +1842,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 7
+        "y": 6
       },
       "hideTimeOverride": true,
       "id": 71,
@@ -2009,7 +1975,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 7
+        "y": 6
       },
       "hideTimeOverride": true,
       "id": 72,
@@ -2142,7 +2108,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 7
+        "y": 6
       },
       "hideTimeOverride": true,
       "id": 83,
@@ -2215,6 +2181,10 @@
           "id": "groupBy",
           "options": {
             "fields": {
+              "EIP IDS no Tags": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
               "ELB no Tags Names": {
                 "aggregations": [],
                 "operation": "groupby"
@@ -2275,7 +2245,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 7
+        "y": 6
       },
       "hideTimeOverride": true,
       "id": 111,
@@ -2380,7 +2350,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 9
       },
       "id": 102,
       "options": {
@@ -2434,7 +2404,7 @@
         "h": 5,
         "w": 2,
         "x": 0,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 35,
@@ -2555,7 +2525,7 @@
         "h": 5,
         "w": 2,
         "x": 2,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 38,
@@ -2676,7 +2646,7 @@
         "h": 5,
         "w": 3,
         "x": 4,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 52,
@@ -2797,7 +2767,7 @@
         "h": 5,
         "w": 2,
         "x": 7,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 63,
@@ -2918,7 +2888,7 @@
         "h": 5,
         "w": 2,
         "x": 9,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 22,
@@ -3040,7 +3010,7 @@
         "h": 5,
         "w": 2,
         "x": 11,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 75,
@@ -3162,7 +3132,7 @@
         "h": 5,
         "w": 2,
         "x": 13,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 79,
@@ -3284,7 +3254,7 @@
         "h": 5,
         "w": 2,
         "x": 15,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 85,
@@ -3406,7 +3376,7 @@
         "h": 5,
         "w": 2,
         "x": 17,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 84,
@@ -3527,7 +3497,7 @@
         "h": 5,
         "w": 2,
         "x": 19,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 39,
@@ -3649,7 +3619,7 @@
         "h": 5,
         "w": 2,
         "x": 21,
-        "y": 11
+        "y": 10
       },
       "hideTimeOverride": true,
       "id": 94,
@@ -3775,7 +3745,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 16
+        "y": 15
       },
       "id": 57,
       "options": {
@@ -3934,7 +3904,7 @@
         "h": 3,
         "w": 3,
         "x": 4,
-        "y": 16
+        "y": 15
       },
       "id": 64,
       "options": {
@@ -4079,7 +4049,7 @@
         "h": 3,
         "w": 4,
         "x": 7,
-        "y": 16
+        "y": 15
       },
       "id": 59,
       "options": {
@@ -4208,7 +4178,7 @@
         "h": 3,
         "w": 4,
         "x": 11,
-        "y": 16
+        "y": 15
       },
       "hideTimeOverride": true,
       "id": 77,
@@ -4345,7 +4315,7 @@
         "h": 3,
         "w": 4,
         "x": 15,
-        "y": 16
+        "y": 15
       },
       "hideTimeOverride": true,
       "id": 86,
@@ -4478,7 +4448,7 @@
         "h": 3,
         "w": 4,
         "x": 19,
-        "y": 16
+        "y": 15
       },
       "hideTimeOverride": true,
       "id": 40,
@@ -4575,7 +4545,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 18
       },
       "id": 91,
       "options": {
@@ -4634,7 +4604,7 @@
         "h": 5,
         "w": 2,
         "x": 0,
-        "y": 20
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 87,
@@ -4755,7 +4725,7 @@
         "h": 5,
         "w": 2,
         "x": 2,
-        "y": 20
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 88,
@@ -4875,131 +4845,9 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4,
-        "x": 4,
-        "y": 20
-      },
-      "hideTimeOverride": true,
-      "id": 96,
-      "links": [],
-      "maxDataPoints": "",
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.5.2",
-      "targets": [
-        {
-          "application": {
-            "filter": "EC2"
-          },
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "kGTw7L87k"
-          },
-          "functions": [],
-          "group": {
-            "filter": "Linux servers"
-          },
-          "host": {
-            "filter": "AWS"
-          },
-          "item": {
-            "filter": "Snapshot Public Total"
-          },
-          "itemTag": {
-            "filter": "Application: TAG"
-          },
-          "options": {
-            "disableDataAlignment": false,
-            "showDisabledItems": false,
-            "skipEmptyValues": false,
-            "useZabbixValueMapping": false
-          },
-          "proxy": {
-            "filter": ""
-          },
-          "queryType": "0",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "table": {
-            "skipEmptyValues": false
-          },
-          "tags": {
-            "filter": ""
-          },
-          "trigger": {
-            "filter": ""
-          },
-          "triggers": {
-            "acknowledged": 2,
-            "count": true,
-            "minSeverity": 3
-          }
-        }
-      ],
-      "title": "Snap Public Total",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "mRqFWOunz"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#37872D",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
         "w": 2,
-        "x": 8,
-        "y": 20
+        "x": 4,
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 99,
@@ -5120,8 +4968,8 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 10,
-        "y": 20
+        "x": 6,
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 100,
@@ -5238,8 +5086,8 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 12,
-        "y": 20
+        "x": 8,
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 103,
@@ -5355,8 +5203,8 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 14,
-        "y": 20
+        "x": 10,
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 104,
@@ -5476,8 +5324,8 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 16,
-        "y": 20
+        "x": 12,
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 106,
@@ -5597,8 +5445,8 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 18,
-        "y": 20
+        "x": 14,
+        "y": 19
       },
       "hideTimeOverride": true,
       "id": 107,
@@ -5695,8 +5543,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#37872D",
-                "value": null
+                "color": "#37872D"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -5715,7 +5562,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 25
+        "y": 24
       },
       "hideTimeOverride": true,
       "id": 95,
@@ -5829,8 +5676,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#37872D",
-                "value": null
+                "color": "#37872D"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -5848,8 +5694,8 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 8,
-        "y": 25
+        "x": 4,
+        "y": 24
       },
       "hideTimeOverride": true,
       "id": 101,
@@ -5964,8 +5810,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5992,8 +5837,8 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 12,
-        "y": 25
+        "x": 8,
+        "y": 24
       },
       "id": 105,
       "options": {
@@ -6126,8 +5971,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -6141,8 +5985,8 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 16,
-        "y": 25
+        "x": 12,
+        "y": 24
       },
       "id": 108,
       "options": {
@@ -6272,8 +6116,8 @@
     ]
   },
   "timezone": "browser",
-  "title": "AWS -Brasil Prev",
+  "title": "AWS -Brasil PREV",
   "uid": "2zxhpDbZk",
-  "version": 64,
+  "version": 75,
   "weekStart": ""
 }
