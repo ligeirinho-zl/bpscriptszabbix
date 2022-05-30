@@ -58,7 +58,16 @@
         zabbix_php_install: false
         zabbix_nginx_tls: false
 
-    - name: Include role zabbix web
+    - name: Remove default nginx conf
       ansible.builtin.file:
-        path: /etc/nginx/sites-enabled/default.conf
+        path: "{{ item }}"
         state: absent
+      with_items:
+        - /etc/nginx/sites-enabled/default
+        - /var/www/html/*
+
+    - name: restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        enabled: true
