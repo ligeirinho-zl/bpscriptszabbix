@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-05-30T19:05:45Z</date>
+    <groups>
+        <group>
+            <name>aws</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>AWS Infra Compliance Brasil Prev-v.2</template>
+            <name>AWS Infra Compliance Brasil Prev v.2</name>
+            <groups>
+                <group>
+                    <name>aws</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>EC2</name>
+                </application>
+                <application>
+                    <name>ECS</name>
+                </application>
+                <application>
+                    <name>ElastiCache</name>
+                </application>
+                <application>
+                    <name>Lambda</name>
+                </application>
+                <application>
+                    <name>RDS</name>
+                </application>
+                <application>
+                    <name>S3</name>
+                </application>
+                <application>
+                    <name>SNS</name>
+                </application>
+                <application>
+                    <name>SQS</name>
+                </application>
+                <application>
+                    <name>TAG</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Lambas Sem TAG</name>
+                    <type>TRAP</type>
+                    <key>aws.prd.lambda.without.tag</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>TAG</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>RDS Sem TAG</name>
+                    <type>TRAP</type>
+                    <key>aws.prd.rds.without.tag</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>TAG</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Buckets S3 Sem Tag</name>
+                    <type>TRAP</type>
+                    <key>aws.prd.s3.without.tag</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>TAG</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Quantidade Buckets S3 Publicos</name>
+                    <type>TRAP</type>
+                    <key>aws.prd.verifica.s3.public</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Instancias Sem TAG</name>
+                    <type>TRAP</type>
+                    <key>ec2.without.tag</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>TAG</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Running Total Instances</name>
+                    <key>instancias</key>
+                    <delay>10m</delay>
+                    <applications>
+                        <application>
+                            <name>EC2</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Instances RDS</name>
+                    <key>irds.prd</key>
+                    <delay>3h</delay>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cluster RDS</name>
+                    <key>rds.prd</key>
+                    <delay>3h</delay>
+                    <applications>
+                        <application>
+                            <name>RDS</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Buckets S3 Sem Criptografia</name>
+                    <type>TRAP</type>
+                    <key>s3..prd.without.encrypt</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Buckets S3</name>
+                    <type>TRAP</type>
+                    <key>s3.prd</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>S3</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Fila SQS</name>
+                    <key>sqs.prd</key>
+                    <delay>3h</delay>
+                    <applications>
+                        <application>
+                            <name>SQS</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>

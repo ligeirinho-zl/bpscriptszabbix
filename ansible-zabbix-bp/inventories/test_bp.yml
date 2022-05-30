@@ -1,2 +1,14 @@
 [agent]
-ec2-54-233-97-75.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
+ec2-18-228-154-165.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
+
+[database]
+ec2-18-231-5-202.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
+
+[grafana]
+ec2-18-228-154-165.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
+
+[web]
+ec2-18-231-5-202.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem
+
+[zabbix_server]
+ec2-18-228-154-165.sa-east-1.compute.amazonaws.com ansible_user=ubuntu ansible_become_user=root ansible_ssh_private_key_file=/home/tbs/O2B/keys/zabbix_aws.pem

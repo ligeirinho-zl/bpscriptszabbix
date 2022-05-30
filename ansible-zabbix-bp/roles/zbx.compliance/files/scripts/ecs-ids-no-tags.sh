@@ -21,7 +21,7 @@ do
     fi
   done
   if [[ $(cat $TEMPFILE) -ne $totalTags ]]; then
-    /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k ecs-ids-no-tag -o $(echo $ecsARN | cut -d ':' -f 6)
+    /usr/bin/zabbix_sender -z $1 -s "AWS" -k ecs-ids-no-tag -o $(echo $ecsARN | cut -d ':' -f 6)
   fi
 done
 

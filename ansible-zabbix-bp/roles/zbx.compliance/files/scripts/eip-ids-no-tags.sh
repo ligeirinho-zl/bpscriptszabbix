@@ -25,7 +25,7 @@ for (( i=0; i<$jsonArrayLength ; i++ )); do
     fi
   done
   if [[ $COUNTER -ne $totalTags ]]; then
-    /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k eip-ids-no-tag -o $idIP
+    /usr/bin/zabbix_sender -z $1 -s "AWS" -k eip-ids-no-tag -o $idIP
   fi
 done
 

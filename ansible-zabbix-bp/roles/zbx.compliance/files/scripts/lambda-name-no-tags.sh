@@ -21,7 +21,7 @@ do
     fi
   done
   if [[ $(cat $TEMPFILE) -ne $totalTags ]]; then
-    /usr/bin/zabbix_sender -z 54.207.205.224 -s "AWS" -k lamba-no-tags -o $(echo $functionARN | cut -d ':' -f 7)
+    /usr/bin/zabbix_sender -z $1 -s "AWS" -k lamba-no-tags -o $(echo $functionARN | cut -d ':' -f 7)
   fi
 done
 

@@ -22,11 +22,6 @@
           password: "{{ postgre_grafana_password }}"
           max_idle_conn: "{{ postgre_grafana_max_idle_conn }}"
           ssl_mode: "{{ postgre_grafana_ssl_mode }}"
-        grafana_datasources:
-          - name: Zabbix
-            type: datasource
-            url: 'http://{{ zabbix_server_url_api }}/api_jsonrpc.php'
-            basicAuth: false
         grafana_plugins:
           - alexanderzobnin-zabbix-app
         grafana_security:

@@ -121,6 +121,9 @@ nginx_config_http_template:
             - location: /grafana
               proxy:
                 pass: "http://{{ grafana_url }}"
+                set_header:
+                  - field: Host
+                    value: $http_host
         - core:
             listen:
               - address: 0.0.0.0

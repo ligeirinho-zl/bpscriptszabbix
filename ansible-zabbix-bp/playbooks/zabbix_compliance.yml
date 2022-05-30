@@ -1,8 +1,10 @@
 - hosts: agent
   become: true
   vars:
-    - install_jq: false
+    - install_jq: true
   tasks:
     - name: "Include zbx.compliance"
       include_role:
         name: ../roles/zbx.compliance
+      vars:
+        zabbix_server_ip: 10.0.0.68

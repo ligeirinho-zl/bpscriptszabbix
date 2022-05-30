@@ -5,13 +5,15 @@
   tasks:
     # update repos if cache is empty role not update
     - block:
-        - name: Update repos
+        - name: Update repos and install psycopg2
           ansible.builtin.apt:
-           update_cache: yes
+            name: python3-psycopg2
+            update_cache: yes
           when: ansible_os_family == "Debian"
 
-        - name: Update repos
+        - name: Update repos and install psycopg2
           ansible.builtin.yum:
+            name: python3-psycopg2
             update_cache: yes
           when: ansible_os_family == "RedHat"
       become: true
@@ -60,7 +62,6 @@
         su postgres -c "psql -c 'GRANT ALL PRIVILEGES ON DATABASE postgres TO {{ postgre_adm_user }};'"
 
     - name: Create Database Zabbix
-      delegate_to: 127.0.0.1
       community.postgresql.postgresql_db:
         name: "{{ postgre_zbx_database_name }}"
         login_host: "{{ postgre_host }}"
@@ -69,7 +70,6 @@
         port: "{{ postgre_port }}"
 
     - name: Create Zabbix DB User
-      delegate_to: 127.0.0.1
       community.postgresql.postgresql_user:
         name: "{{ postgre_zbx_user }}"
         db: "{{ postgre_zbx_database_name }}"
@@ -81,7 +81,6 @@
         comment: Zabbix connection User
 
     - name: Create Database Grafana
-      delegate_to: 127.0.0.1
       community.postgresql.postgresql_db:
         name: "{{ postgre_grafana_database_name }}"
         login_host: "{{ postgre_host }}"
@@ -90,7 +89,6 @@
         port: "{{ postgre_port }}"
 
     - name: Create Grafana DB User
-      delegate_to: 127.0.0.1
       community.postgresql.postgresql_user:
         name: "{{ postgre_grafana_user }}"
         db: "{{ postgre_grafana_database_name }}"

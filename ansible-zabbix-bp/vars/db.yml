@@ -1,5 +1,5 @@
 postgre_version: '12'
-postgre_host: 192.168.0.235
+postgre_host: 10.0.0.247
 postgre_port: 5432
 
 postgre_grafana_database_name: grafana
