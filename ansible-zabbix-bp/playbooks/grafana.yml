@@ -25,7 +25,7 @@
         grafana_datasources:
           - name: Zabbix
             type: datasource
-            url: 'http://{{ zabbix_api_server_url }}/api_jsonrpc.php'
+            url: 'http://{{ zabbix_server_url_api }}/api_jsonrpc.php'
             basicAuth: false
         grafana_plugins:
           - alexanderzobnin-zabbix-app

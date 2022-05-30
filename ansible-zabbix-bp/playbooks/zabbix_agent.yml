@@ -10,4 +10,10 @@
   roles:
     - role: zabbix_agent
       vars:
-        zabbix_agent_server: "{{ zabbix_agent_server }}"
+        zabbix_install_pip_packages: false
+        zabbix_agent_server: "{{ zabbix_final_agent_server }}"
+        zabbix_api_server_url: "http://{{ zabbix_server_url_api }}"
+        zabbix_api_use: true
+        zabbix_api_login_user: Admin
+        zabbix_api_login_pass: zabbix
+        zabbix_agent_host_state: present

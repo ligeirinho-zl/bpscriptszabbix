@@ -4,3 +4,4 @@ molecule[docker]
 molecule[lint]
 libpq-dev
 psycopg2-binary
+netaddr

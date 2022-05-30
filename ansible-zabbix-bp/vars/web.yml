@@ -124,11 +124,11 @@ nginx_config_http_template:
         - core:
             listen:
               - address: 0.0.0.0
-                port: 10052
+                port: 10051
                 ssl: false
                 default_server: false
               - address: "[::]"
-                port: 10052
+                port: 10051
                 ssl: false
                 default_server: false
             server_name: "{{ web_srv_final_url }}"
@@ -138,4 +138,4 @@ nginx_config_http_template:
           locations:
            - location: /
              proxy:
-               pass: "http://{{ zabbix_api_server_url }}"
+               pass: "http://{{ zabbix_server_url_api }}"

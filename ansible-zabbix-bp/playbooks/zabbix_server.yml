@@ -54,7 +54,7 @@
         zabbix_vhost: true
         zabbix_websrv: 'nginx'
         zabbix_websrv_servername: "{{ zabbix_web_server_url }}"
-        zabbix_api_server_url:
+        zabbix_api_server_url: "{{ zabbix_server_url_api }}"
         zabbix_php_install: false
         zabbix_nginx_tls: false
 
