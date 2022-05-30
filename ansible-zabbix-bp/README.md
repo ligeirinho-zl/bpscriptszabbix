@@ -39,5 +39,5 @@ libpq-dev
 
 ## Run Stack in local VMs all tags
 ```bash
-ansible-playbook -i inventories/full_install.yml playbooks/test.yml --vault-password-file ~/O2B/keys/vault.pas
+ansible-playbook -i inventories/test.yml playbooks/full_install.yml --vault-password-file ~/O2B/keys/vault.pas
 ```
