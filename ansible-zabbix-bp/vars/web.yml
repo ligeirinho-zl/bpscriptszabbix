@@ -1,0 +1,141 @@
+nginx_setup: install
+nginx_version: "1.21.6-1"
+nginx_service_modify: true
+nginx_service_timeout: 95
+nginx_logrotate_conf_enable: true
+nginx_logrotate_conf:
+  paths:
+    - /var/log/nginx/*.log
+  options:
+    - daily
+    - missingok
+    - rotate 14
+    - compress
+    - delaycompress
+    - notifempty
+    - sharedscripts
+
+nginx_config_debug_output: true
+nginx_config_selinux: false
+nginx_config_upload_ssl_enable: false
+
+nginx_config_main_template_enable: true
+nginx_config_main_template:
+  template_file: nginx.conf.j2
+  deployment_location: /etc/nginx/nginx.conf
+  backup: false
+  config:
+    main:
+      user:
+        username: nginx
+      worker_cpu_affinity:
+        auto: true
+      worker_priority: 0
+      worker_processes: auto
+      worker_rlimit_core: 10000
+      worker_rlimit_nofile: 10000
+      worker_shutdown_timeout: 3m
+      error_log:
+        - file: /var/log/nginx/error.log
+          level: info
+      pid: /var/run/nginx.pid
+      daemon: true
+      debug_points: abort
+      master_process: true
+      thread_pool:
+        - name: default
+          threads: 64
+          max_queue: 65536
+      timer_resolution: 1s
+      working_directory: /etc/nginx
+    events:
+      accept_mutex: false
+      accept_mutex_delay: 500ms
+      multi_accept: false
+      use: epoll
+      worker_aio_requests: 32
+      worker_connections: 512
+    http:
+      include:
+        - /etc/nginx/conf.d/*.conf
+        - /etc/nginx/sites-enabled/*
+    stream:
+      include:
+        - /etc/nginx/conf.d/streams/*.conf
+
+nginx_config_status_access_log:
+  path: /var/log/nginx/access.log
+  format: main
+
+nginx_config_http_template_enable: true
+nginx_config_http_template:
+  - backup: false
+    config:
+      core:
+        aio:
+          threads: true
+        absolute_redirect: true
+        disable_symlinks:
+          check: 'on'
+          from: $document_root
+        server_name_in_redirect: false
+        port_in_redirect: false
+        server_tokens: off
+        gunzip:
+          enable: true
+        gzip:
+          enable: true
+        rewrite:
+          log: true
+      servers:
+        - core:
+            listen:
+              - address: 0.0.0.0
+                port: 80
+                ssl: false
+                default_server: true
+              - address: "[::]"
+                port: 80
+                ssl: false
+                default_server: false
+            server_name: "{{ web_srv_final_url }}"
+          log:
+            access:
+              - path: /var/log/nginx/access-web.log
+          locations:
+            - location: /
+              rewrite:
+                return: 418
+            - location: /zabbix
+              proxy:
+                pass: "http://{{ zabbix_web_server_url }}/"
+                set_header:
+                  - field: Host
+                    value: $host
+                  - field: X-Real-IP
+                    value: $remote_addr
+                  - field: X-Forwarded-For
+                    value: $proxy_add_x_forwarded_for
+                  - field: X-Forwarded-Proto
+                    value: $scheme
+            - location: /grafana
+              proxy:
+                pass: "http://{{ grafana_url }}"
+        - core:
+            listen:
+              - address: 0.0.0.0
+                port: 10052
+                ssl: false
+                default_server: false
+              - address: "[::]"
+                port: 10052
+                ssl: false
+                default_server: false
+            server_name: "{{ web_srv_final_url }}"
+          log:
+            access:
+              - path: /var/log/nginx/access-zbx-agent.log
+          locations:
+           - location: /
+             proxy:
+               pass: "http://{{ zabbix_api_server_url }}"

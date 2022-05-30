@@ -1,0 +1,13 @@
+---
+- name: Install Zabbix agent
+  hosts: agent
+  become: yes
+  vars_files:
+    - ../vars/zabbix.yml
+    - ../vars/urls.yml
+  collections:
+    - community.zabbix
+  roles:
+    - role: zabbix_agent
+      vars:
+        zabbix_agent_server: "{{ zabbix_agent_server }}"

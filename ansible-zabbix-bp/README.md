@@ -13,7 +13,7 @@ cd roles/zbx.compliance
 molecule create && molecule test
 ```
 
-## Run local VM test
+## Run local VM test all tags
 ```bash
 ansible-playbook -i inventories/test.yml playbooks/test.yml
 ```
@@ -25,6 +25,7 @@ chmod o-w .
 
 ## Se a verificação dos host SSH falhar usar a seguinte variavel
 ```bash
+ssh-keygen -f ~/.ssh/known_hosts -R "IP"
 export ANSIBLE_HOST_KEY_CHECKING=False
 ```
 
@@ -34,4 +35,9 @@ Requirements in ansible master
 
 ```bash
 libpq-dev
+```
+
+## Run Stack in local VMs all tags
+```bash
+ansible-playbook -i inventories/full_install.yml playbooks/test.yml --vault-password-file ~/O2B/keys/vault.pas
 ```

@@ -1,0 +1,64 @@
+---
+- name: Install Zabbix Server
+  hosts: zabbix_server
+  become: yes
+  vars_files:
+    - ../vars/zabbix.yml
+    - ../vars/db.yml
+    - ../vars/urls.yml
+  tasks:
+    - name: Include role zabbix server
+      ansible.builtin.include_role:
+        name: community.zabbix.zabbix_server
+      vars:
+        zabbix_server_install_recommends: false
+        zabbix_server_database: pgsql
+        zabbix_server_database_long: postgresql
+        zabbix_server_dbname: "{{ postgre_zbx_database_name }}"
+        zabbix_server_dbport: "{{ postgre_port }}"
+        zabbix_server_dbhost: "{{ postgre_host }}"
+        zabbix_server_dbuser: "{{ postgre_zbx_user }}"
+        zabbix_server_dbpassword: "{{ postgre_zbx_password }}"
+        zabbix_server_dbhost_run_install: false
+        zabbix_database_creation: false
+        zabbix_database_sqlload: true
+        zabbix_server_install_database_client: true
+
+    - name: Include role zabbix web
+      ansible.builtin.include_role:
+        name: geerlingguy.php
+      vars:
+        php_enable_webserver: false
+        php_install_recommends: false
+        php_memory_limit: "128M"
+        php_max_execution_time: "300"
+        php_upload_max_filesize: "256M"
+        php_packages:
+          - php
+          - php-fpm
+          - php-apcu
+          - php-pgsql
+
+    - name: Include role zabbix web
+      ansible.builtin.include_role:
+        name: community.zabbix.zabbix_web
+      vars:
+        zabbix_server_database: pgsql
+        zabbix_server_database_long: postgresql
+        zabbix_server_dbhost: "{{ postgre_host }}"
+        zabbix_server_dbname: "{{ postgre_zbx_database_name }}"
+        zabbix_server_dbport: "{{ postgre_port }}"
+        zabbix_server_dbuser: "{{ postgre_zbx_user }}"
+        zabbix_server_dbpassword: "{{ postgre_zbx_password }}"
+        zabbix_php_fpm_conf_listen: true
+        zabbix_vhost: true
+        zabbix_websrv: 'nginx'
+        zabbix_websrv_servername: "{{ zabbix_web_server_url }}"
+        zabbix_api_server_url:
+        zabbix_php_install: false
+        zabbix_nginx_tls: false
+
+    - name: Include role zabbix web
+      ansible.builtin.file:
+        path: /etc/nginx/sites-enabled/default.conf
+        state: absent

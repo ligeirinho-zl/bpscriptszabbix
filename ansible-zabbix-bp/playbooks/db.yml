@@ -1,10 +1,29 @@
-- hosts: db
-  remote_user: root
-  roles:
-    - galaxyproject.postgresql
+- hosts: database
+  vars_files:
+    - ../vars/db.yml
+    - ../vars/urls.yml
+  tasks:
+    # update repos if cache is empty role not update
+    - block:
+        - name: Update repos
+          ansible.builtin.apt:
+           update_cache: yes
+          when: ansible_os_family == "Debian"
+
+        - name: Update repos
+          ansible.builtin.yum:
+            update_cache: yes
+          when: ansible_os_family == "RedHat"
       become: true
+
+    - name: Include role postgre
+      ansible.builtin.include_role:
+        name: galaxyproject.postgresql
+        apply:
+          become: yes
+          become_user: root
       vars:
-        postgresql_version: 14
+        postgresql_version: "{{ postgre_version }}"
         postgresql_conf:
           # Memory Configuration
           - shared_buffers: "'2GB'"
@@ -24,18 +43,60 @@
           - max_parallel_workers_per_gather: 2
           - max_parallel_workers: 2
           # General config
-          - listen_addresses: "*"
-          - max_connections: 150
+          - listen_addresses: "'*'"
+          - max_connections: 200
         postgresql_pg_hba_conf:
-          - host all all 10.0.0.0/24 md5
+          - host all all {{ vpc_netmask }} md5
+          - host all {{ postgre_adm_user }} 0.0.0.0/0 md5
 
-    - name: Create Database
+    - name: Restart PostgreSQL
+      become: yes
+      service: name={{ postgresql_service_name }} state=restarted
+
+    - name: Create user admin
+      become: yes
+      ansible.builtin.shell: |
+        su postgres -c "psql -c \"CREATE USER {{ postgre_adm_user }} WITH SUPERUSER PASSWORD '{{ postgre_adm_password }}';\""
+        su postgres -c "psql -c 'GRANT ALL PRIVILEGES ON DATABASE postgres TO {{ postgre_adm_user }};'"
+
+    - name: Create Database Zabbix
+      delegate_to: 127.0.0.1
       community.postgresql.postgresql_db:
-        name: zabbix
+        name: "{{ postgre_zbx_database_name }}"
+        login_host: "{{ postgre_host }}"
+        login_user: "{{ postgre_adm_user }}"
+        login_password: "{{ postgre_adm_password }}"
+        port: "{{ postgre_port }}"
 
-    - name: Create rails user, set MD5-hashed password, grant privs
+    - name: Create Zabbix DB User
+      delegate_to: 127.0.0.1
       community.postgresql.postgresql_user:
-        name: zabbix
-        db: zabbix
-        password:
+        name: "{{ postgre_zbx_user }}"
+        db: "{{ postgre_zbx_database_name }}"
+        password: "{{ postgre_zbx_password }}"
+        login_host: "{{ postgre_host }}"
+        login_user: "{{ postgre_adm_user }}"
+        login_password: "{{ postgre_adm_password }}"
+        port: "{{ postgre_port }}"
         comment: Zabbix connection User
+
+    - name: Create Database Grafana
+      delegate_to: 127.0.0.1
+      community.postgresql.postgresql_db:
+        name: "{{ postgre_grafana_database_name }}"
+        login_host: "{{ postgre_host }}"
+        login_user: "{{ postgre_adm_user }}"
+        login_password: "{{ postgre_adm_password }}"
+        port: "{{ postgre_port }}"
+
+    - name: Create Grafana DB User
+      delegate_to: 127.0.0.1
+      community.postgresql.postgresql_user:
+        name: "{{ postgre_grafana_user }}"
+        db: "{{ postgre_grafana_database_name }}"
+        password: "{{ postgre_grafana_password }}"
+        login_host: "{{ postgre_host }}"
+        login_user: "{{ postgre_adm_user }}"
+        login_password: "{{ postgre_adm_password }}"
+        port: "{{ postgre_port }}"
+        comment: Grafana connection User

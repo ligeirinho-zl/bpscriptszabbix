@@ -1,0 +1,21 @@
+---
+
+- name: Include DB playbook
+  ansible.builtin.import_playbook: db.yml
+  tags:
+    - database
+
+- name: Include Zabbix Server playbook
+  ansible.builtin.import_playbook: zabbix_server.yml
+  tags:
+    - zabbix
+
+- name: Include Grafana playbook
+  ansible.builtin.import_playbook: grafana.yml
+  tags:
+    - grafana
+
+- name: Include Web playbook
+  ansible.builtin.import_playbook: web.yml
+  tags:
+    - stack_web

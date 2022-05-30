@@ -1,25 +1,44 @@
 - hosts: grafana
   vars_files:
-    ../vars/grafana.yml
+    - ../vars/grafana.yml
+    - ../vars/zabbix.yml
+    - ../vars/db.yml
+    - ../vars/urls.yml
   tasks:
-    - role: cloudalchemy.grafana
+    - name: Include role grafana install
+      ansible.builtin.include_role:
+        name: cloudalchemy.grafana
       vars:
+        grafana_address: "0.0.0.0"
+        grafana_url: "http://{{ grafana_final_url }}"
+        grafana_domain: "{{ grafana_final_url | split('/') | first }}"
+        grafana_server:
+          serve_from_sub_path: true
+        grafana_database:
+          type: postgres
+          host: "{{ postgre_host }}:{{ postgre_port }}"
+          name: "{{ postgre_grafana_database_name }}"
+          user: "{{ postgre_grafana_user }}"
+          password: "{{ postgre_grafana_password }}"
+          max_idle_conn: "{{ postgre_grafana_max_idle_conn }}"
+          ssl_mode: "{{ postgre_grafana_ssl_mode }}"
         grafana_datasources:
           - name: Zabbix
             type: datasource
-            url: 'http://{{ zabbix_server_web }}/api_jsonrpc.php'
+            url: 'http://{{ zabbix_api_server_url }}/api_jsonrpc.php'
             basicAuth: false
         grafana_plugins:
-          - public/plugins/alexanderzobnin-zabbix-app
+          - alexanderzobnin-zabbix-app
         grafana_security:
-          admin_user: admin
-          admin_password: "{{ grafana_password }}"
+          admin_user: "{{ grafana_admin_user }}"
+          admin_password: "{{ grafana_admin_password }}"
 
-    - name: Import Grafana dashboard
-      community.grafana.grafana_dashboard:
-        grafana_url: "{{ grafana_url }}"
-        grafana_api_key: "{{ grafana_api_key }}"
-        state: present
-        commit_message: Updated by ansible
-        overwrite: yes
-        path: ../../bp_grafana.json
+    #- name: Import Grafana dashboard
+    #  community.grafana.grafana_dashboard:
+    #    grafana_url: "http://{{ grafana_url }}"
+    #    grafana_user: "{{ grafana_admin_user }}"
+    #    grafana_password: "{{ grafana_admin_password }}"
+    #    state: present
+    #    commit_message: Updated by ansible
+    #    overwrite: yes
+    #    path: "{{ playbook_dir }}/../../bp_grafana.json"

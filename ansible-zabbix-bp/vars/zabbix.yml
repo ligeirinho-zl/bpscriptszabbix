@@ -1,0 +1,6 @@
+zabbix_server_version: '5.0'
+zabbix_web_version: '5.0'
+zabbix_server_name: 'zabbix'
+zabbix_server_version_minor: '1'
+zabbix_server_listenport: 10051
+zabbix_timezone: America/Sao_Paulo

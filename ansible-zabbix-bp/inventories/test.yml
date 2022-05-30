@@ -1,2 +1,14 @@
-[vm]
+[agent]
 192.168.0.233 ansible_user=test ansible_password=test ansible_become_user=root ansible_become_password=test
+
+[database]
+192.168.0.235 ansible_user=test ansible_password=test ansible_become_user=root ansible_become_password=test
+
+[grafana]
+192.168.0.236 ansible_user=test ansible_password=test ansible_become_user=root ansible_become_password=test
+
+[web]
+192.168.0.233 ansible_user=test ansible_password=test ansible_become_user=root ansible_become_password=test
+
+[zabbix_server]
+192.168.0.234 ansible_user=test ansible_password=test ansible_become_user=root ansible_become_password=test

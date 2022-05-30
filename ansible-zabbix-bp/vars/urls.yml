@@ -1,0 +1,16 @@
+# VPC Backend allow in hosts
+vpc_netmask: 192.168.0.0/24
+# Url final para o root_url da config do grafana
+grafana_final_url: 192.168.0.233/grafana
+# Web final server name
+web_srv_final_url: '192.168.0.233'
+# Url final para o zabbix web
+zabbix_final_url: '192.168.0.233/zabbix'
+# url raiz do grafana no lb ou server de grafana
+grafana_url: 192.168.0.236:3000
+# zabbix api server
+zabbix_web_server_url: '192.168.0.234'
+# zabbix api server
+zabbix_api_server_url: 192.168.0.234:10051
+# zabbix agent server
+zabbix_agent_server: 192.168.0.234:10051
