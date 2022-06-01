@@ -3,140 +3,143 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=””
 
 #######  Total RDS instances #######rds-total.sh
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k rds-ids-total -o $(/etc/zabbix/scripts/rds-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k rds-ids-total -o $(/etc/zabbix/scripts/rds-total.sh)
 
 ####### RDS Sem Tags #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k aws.prd.rds.without.tag -o $(/etc/zabbix/scripts/aws-prd-rds-without-tag.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k aws.prd.rds.without.tag -o $(/etc/zabbix/scripts/aws-prd-rds-without-tag.sh)
 
 ####### ID RDS no Tags #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/rds-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/rds-ids-no-tags.sh {{ zabbix_server_ip }}
 
 ####### Ec2 Sem Tags #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ec2.without.tag -o $(/etc/zabbix/scripts/ec2.without.tag.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ec2.without.tag -o $(/etc/zabbix/scripts/ec2.without.tag.sh)
 
 ####### S3 Sem Encriptar #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k s3..prd.without.encrypt -o $(/etc/zabbix/scripts/aws-s3-encrypt-prd.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k s3..prd.without.encrypt -o $(/etc/zabbix/scripts/aws-s3-encrypt-prd.sh)
 
 ####### S3-sem-tag #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/s3-sem-tag.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k aws.prd.s3.without.tag -o $(/etc/zabbix/scripts/s3-sem-tag.sh)
 
 ####### Total S3 #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k s3.prd  -o $(/etc/zabbix/scripts/s3-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k s3.prd  -o $(/etc/zabbix/scripts/s3-total.sh)
 
 #######  Id Ec2 no tags #######ec2-ids-no-tags.sh
-*/5 * * * * ubuntu /etc/zabbix/scripts/sender-ec2-ids-no-tag.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/sender-ec2-ids-no-tag.sh {{ zabbix_server_ip }}
 
 #######  Names S3 buckets sem tags #######s3-names.sh
-*/5 * * * * ubuntu /etc/zabbix/scripts/s3-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/s3-no-tags.sh {{ zabbix_server_ip }}
 
 #######  Total S3 Unencrypted #######s3-no-crypt.sh {{ zabbix_server_ip }}
-*/5 * * * * ubuntu /etc/zabbix/scripts/s3-no-crypt.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/s3-no-crypt.sh {{ zabbix_server_ip }}
 
 #######  Total Lambdas #######lambda-total.sh
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k lambda-total -o $(/etc/zabbix/scripts/lambda-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k lambda-total -o $(/etc/zabbix/scripts/lambda-total.sh)
 
 #######  Lambda Sem Tags #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/lambda-name-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/lambda-name-no-tags.sh {{ zabbix_server_ip }}
 
 #######  Lambda no Tags total #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k lamba-no-tag-total -o $(/etc/zabbix/scripts/lambda-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k lamba-no-tag-total -o $(/etc/zabbix/scripts/lambda-no-tags.sh)
 
 #######  ELB Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elb-total -o $(/etc/zabbix/scripts/elb-dns-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elb-total -o $(/etc/zabbix/scripts/elb-dns-total.sh)
 
 #######  ELB no Tags  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elb-total-no-tags -o $(/etc/zabbix/scripts/elb-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elb-total-no-tags -o $(/etc/zabbix/scripts/elb-no-tags.sh)
 
 #######  ELB no Tags DNS  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/elb-no-tags-dns.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/elb-no-tags-dns.sh {{ zabbix_server_ip }}
 
 #######  AMI Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ec2-ami-total -o $(/etc/zabbix/scripts/ec2-ami-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ec2-ami-total -o $(/etc/zabbix/scripts/ec2-ami-total.sh)
 
 #######  AMI No Tags Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ec2-ami-no-tags-total -o $(/etc/zabbix/scripts/ec2-ami-no-tags-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ec2-ami-no-tags-total -o $(/etc/zabbix/scripts/ec2-ami-no-tags-total.sh)
 
 #######  AMI No Tags IDs  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/ec2-ami-no-tags-ids.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/ec2-ami-no-tags-ids.sh {{ zabbix_server_ip }}
 
 #######  ECS Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ecs-total -o $(/etc/zabbix/scripts/ecs-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ecs-total -o $(/etc/zabbix/scripts/ecs-total.sh)
 
 #######  ECS no Tags count  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ecs-no-tags-total -o $(/etc/zabbix/scripts/ecs-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k ecs-no-tags-total -o $(/etc/zabbix/scripts/ecs-no-tags.sh)
 
 #######  ECS IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/ecs-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/ecs-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  VPC Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k vpc-total -o $(/etc/zabbix/scripts/vpc-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k vpc-total -o $(/etc/zabbix/scripts/vpc-total.sh)
 
 #######  VPC no Tags count  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k vpc-no-tags-total -o $(/etc/zabbix/scripts/vpc-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k vpc-no-tags-total -o $(/etc/zabbix/scripts/vpc-no-tags.sh)
 
 #######  VPC IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/vpc-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/vpc-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  EIP Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k eip-total -o $(/etc/zabbix/scripts/eip-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k eip-total -o $(/etc/zabbix/scripts/eip-total.sh)
 
 #######  EIP no Tags count  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k eip-no-tags-total -o $(/etc/zabbix/scripts/eip-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k eip-no-tags-total -o $(/etc/zabbix/scripts/eip-no-tags.sh)
 
 #######  EIP IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/eip-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/eip-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  SG Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k sg-total -o $(/etc/zabbix/scripts/sg-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k sg-total -o $(/etc/zabbix/scripts/sg-total.sh)
 
 #######  SG no Tags count  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k sg-no-tags-total -o $(/etc/zabbix/scripts/sg-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k sg-no-tags-total -o $(/etc/zabbix/scripts/sg-no-tags.sh)
 
 #######  SG IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/sg-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/sg-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  Snapshot Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-total -o $(/etc/zabbix/scripts/snapshot-private-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-total -o $(/etc/zabbix/scripts/snapshot-private-total.sh)
 
 #######  Snapshot no Tags count #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-no-tags-total -o $(/etc/zabbix/scripts/snapshot-private-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-no-tags-total -o $(/etc/zabbix/scripts/snapshot-private-no-tags.sh)
 
 #######  Snapshot IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/snapshot-private-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/snapshot-private-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  Snapshot DB Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-db-total -o $(/etc/zabbix/scripts/snapshot-db-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-db-total -o $(/etc/zabbix/scripts/snapshot-db-total.sh)
 
 #######  Snapshot DB no Tags count #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-db-no-tags-total -o $(/etc/zabbix/scripts/snapshot-db-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k snapshot-db-no-tags-total -o $(/etc/zabbix/scripts/snapshot-db-no-tags.sh)
 
 #######  Snapshot DB IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/snapshot-db-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/snapshot-db-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  IAM Roles Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k iam-roles-total -o $(/etc/zabbix/scripts/iam-role-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k iam-roles-total -o $(/etc/zabbix/scripts/iam-role-total.sh)
 
 #######  IAM Roles no Tags count #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k iam-roles-no-tags-total -o $(/etc/zabbix/scripts/iam-role-no-tags.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k iam-roles-no-tags-total -o $(/etc/zabbix/scripts/iam-role-no-tags.sh)
 
 #######  IAM Roles IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/iam-role-ids-no-tags.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/iam-role-ids-no-tags.sh {{ zabbix_server_ip }}
 
 #######  Cloudfront Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k cloudfront-total -o $(/etc/zabbix/scripts/cloudfront-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k cloudfront-total -o $(/etc/zabbix/scripts/cloudfront-total.sh)
 
 #######  Cloudfront no Tags count #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k cloudfront-no-tags-total -o $(/etc/zabbix/scripts/cloudfront-no-tags-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k cloudfront-no-tags-total -o $(/etc/zabbix/scripts/cloudfront-no-tags-total.sh)
 
 #######  Cloudfront IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/cloudfront-ids-no-tag.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/cloudfront-ids-no-tag.sh {{ zabbix_server_ip }}
 
 #######  Elastic Beanstalk Total  #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elasticbeanstalk-total -o $(/etc/zabbix/scripts/elasticbeanstalk-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elasticbeanstalk-total -o $(/etc/zabbix/scripts/elasticbeanstalk-total.sh)
 
 #######  Elastic Beanstalk no Tags count #######
-*/5 * * * * ubuntu /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elasticbeanstalk-no-tags-total -o $(/etc/zabbix/scripts/elasticbeanstalk-no-tags-total.sh default)
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k elasticbeanstalk-no-tags-total -o $(/etc/zabbix/scripts/elasticbeanstalk-no-tags-total.sh)
 
 #######  Elastic Beanstalk IDs no Tags  #######
-*/5 * * * * ubuntu /etc/zabbix/scripts/elasticbeanstalk-ids-no-tag.sh {{ zabbix_server_ip }}
+*/5 * * * * {{ cron_user }} /etc/zabbix/scripts/elasticbeanstalk-ids-no-tag.sh {{ zabbix_server_ip }}
+
+#######  Total Resources  #######
+*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k total-resources-no-tag -o $(/etc/zabbix/scripts/total-resources-no-tag.sh)
 
