@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2022-05-30T19:05:55Z</date>
+    <date>2022-06-01T20:34:30Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -879,6 +879,17 @@
                         </application>
                     </applications>
                     <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Total Resources No Tags</name>
+                    <type>TRAP</type>
+                    <key>total-resources-no-tag</key>
+                    <delay>0</delay>
+                    <applications>
+                        <application>
+                            <name>TAG</name>
+                        </application>
+                    </applications>
                 </item>
                 <item>
                     <name>Get /proc/diskstats</name>
