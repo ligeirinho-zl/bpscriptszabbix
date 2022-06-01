@@ -1,273 +1,489 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "target": {
-            "limit": 100,
-            "matchAny": false,
-            "tags": [],
-            "type": "dashboard"
-          },
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 7,
-    "iteration": 1653937791596,
-    "links": [],
-    "liveNow": false,
-    "panels": [
+  "annotations": {
+    "list": [
       {
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 0
-        },
-        "id": 6,
-        "panels": [],
-        "title": "Dados",
-        "type": "row"
-      },
-      {
+        "builtIn": 1,
         "datasource": {
-          "type": "marcusolsson-json-datasource",
-          "uid": "p1RlKVr7z"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              }
-            },
-            "mappings": [],
-            "unit": "none"
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "A failedTests"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "semi-dark-red",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "B passedTests"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "semi-dark-green",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            }
-          ]
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
         },
-        "gridPos": {
-          "h": 5,
-          "w": 6,
-          "x": 0,
-          "y": 1
-        },
-        "id": 4,
-        "options": {
-          "displayLabels": [
-            "percent"
-          ],
-          "legend": {
-            "displayMode": "list",
-            "placement": "right",
-            "values": []
-          },
-          "pieType": "pie",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "none"
-          }
-        },
-        "pluginVersion": "8.5.2",
-        "repeat": "accountid",
-        "repeatDirection": "h",
-        "targets": [
-          {
-            "cacheDurationSeconds": 300,
-            "datasource": {
-              "type": "marcusolsson-json-datasource",
-              "uid": "p1RlKVr7z"
-            },
-            "fields": [
-              {
-                "jsonPath": "$..failedTests",
-                "language": "jsonpath",
-                "type": "number"
-              }
-            ],
-            "method": "GET",
-            "params": [
-              [
-                "bundleId",
-                "-73"
-              ],
-              [
-                "cloudAccountId",
-                "$accountid"
-              ],
-              [
-                "from",
-                "2022-05-26T00:00:00Z"
-              ],
-              [
-                "to",
-                "2022-05-28T00:00:00Z"
-              ]
-            ],
-            "queryParams": "",
-            "refId": "A",
-            "urlPath": "/v2/AssessmentHistoryV2/assessmentTrendV2"
-          },
-          {
-            "cacheDurationSeconds": 300,
-            "datasource": {
-              "type": "marcusolsson-json-datasource",
-              "uid": "p1RlKVr7z"
-            },
-            "fields": [
-              {
-                "jsonPath": "$..passedTests",
-                "language": "jsonpath",
-                "type": "number"
-              }
-            ],
-            "hide": false,
-            "method": "GET",
-            "params": [
-              [
-                "bundleId",
-                "-73"
-              ],
-              [
-                "cloudAccountId",
-                "$accountid"
-              ],
-              [
-                "from",
-                "2022-05-26T00:00:00Z"
-              ],
-              [
-                "to",
-                "2022-05-28T00:00:00Z"
-              ]
-            ],
-            "queryParams": "",
-            "refId": "B",
-            "urlPath": "/v2/AssessmentHistoryV2/assessmentTrendV2"
-          }
-        ],
-        "title": "Account $accountid",
-        "transformations": [],
-        "type": "piechart"
+        "type": "dashboard"
       }
-    ],
-    "schemaVersion": 36,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": [
-        {
-          "current": {
-            "selected": true,
-            "text": [
-              "26fc6270-aea8-46af-b9d5-67375e798a1d",
-              "50e26fcf-4239-4cce-b8bf-19fbf0cb8107",
-              "2fc0631f-4dbc-4dd5-bb52-54af19ccfee6",
-              "1cbc9317-5451-44e3-b7ee-44adf786b095",
-              "9b177bd7-b4ea-428e-9bdf-2ba327e4bf81",
-              "d7c09bcd-196c-46a8-a2c9-b7944e111e67"
-            ],
-            "value": [
-              "26fc6270-aea8-46af-b9d5-67375e798a1d",
-              "50e26fcf-4239-4cce-b8bf-19fbf0cb8107",
-              "2fc0631f-4dbc-4dd5-bb52-54af19ccfee6",
-              "1cbc9317-5451-44e3-b7ee-44adf786b095",
-              "9b177bd7-b4ea-428e-9bdf-2ba327e4bf81",
-              "d7c09bcd-196c-46a8-a2c9-b7944e111e67"
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 7,
+  "iteration": 1654101553071,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Dados Azure",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "p1RlKVr7z"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "A failedTests"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
             ]
           },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "B passedTests"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "id": 20,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "repeat": "azureaccountid",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
           "datasource": {
             "type": "marcusolsson-json-datasource",
             "uid": "p1RlKVr7z"
           },
-          "definition": "$..id",
-          "hide": 0,
-          "includeAll": false,
-          "multi": true,
-          "name": "accountid",
-          "options": [],
-          "query": {
-            "cacheDurationSeconds": 300,
-            "fields": [
-              {
-                "jsonPath": "$..id"
-              }
+          "fields": [
+            {
+              "jsonPath": "$..failedTests"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "bundleId",
+              "-76"
             ],
-            "method": "GET",
-            "queryParams": "",
-            "urlPath": "/v2/CloudAccounts"
+            [
+              "cloudAccountId",
+              "$azureaccountid"
+            ],
+            [
+              "from",
+              "2022-05-25T00:00:00Z"
+            ],
+            [
+              "to",
+              "${__to:date}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v2/AssessmentHistoryV2/assessmentTrendV2"
+        },
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "p1RlKVr7z"
           },
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
+          "fields": [
+            {
+              "jsonPath": "$..passedTests"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "params": [
+            [
+              "bundleId",
+              "-76"
+            ],
+            [
+              "cloudAccountId",
+              "$azureaccountid"
+            ],
+            [
+              "from",
+              "2022-05-25T00:00:00Z"
+            ],
+            [
+              "to",
+              "${__to:date}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "B",
+          "urlPath": "/v2/AssessmentHistoryV2/assessmentTrendV2"
         }
-      ]
+      ],
+      "title": "Account Azure ${azureaccountid}",
+      "type": "piechart"
     },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Dados AWS",
+      "type": "row"
     },
-    "timepicker": {},
-    "timezone": "",
-    "title": "Dome9",
-    "uid": "IJ8JCprnk",
-    "version": 1,
-    "weekStart": ""
-  }
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "p1RlKVr7z"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "A failedTests"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "B passedTests"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 12
+      },
+      "id": 4,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "repeat": "accountid",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "p1RlKVr7z"
+          },
+          "fields": [
+            {
+              "jsonPath": "$..failedTests",
+              "language": "jsonpath",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "bundleId",
+              "-73"
+            ],
+            [
+              "cloudAccountId",
+              "$accountid"
+            ],
+            [
+              "from",
+              "2022-05-26T00:00:00Z"
+            ],
+            [
+              "to",
+              "${__to:date}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v2/AssessmentHistoryV2/assessmentTrendV2"
+        },
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "p1RlKVr7z"
+          },
+          "fields": [
+            {
+              "jsonPath": "$..passedTests",
+              "language": "jsonpath",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "params": [
+            [
+              "bundleId",
+              "-73"
+            ],
+            [
+              "cloudAccountId",
+              "${accountid}"
+            ],
+            [
+              "from",
+              "2022-05-26T00:00:00Z"
+            ],
+            [
+              "to",
+              "${__to:date}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "B",
+          "urlPath": "/v2/AssessmentHistoryV2/assessmentTrendV2"
+        }
+      ],
+      "title": "Account ${accountid}",
+      "transformations": [],
+      "type": "piechart"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "marcusolsson-json-datasource",
+          "uid": "p1RlKVr7z"
+        },
+        "definition": "$..id",
+        "hide": 0,
+        "includeAll": true,
+        "label": "AWS",
+        "multi": true,
+        "name": "accountid",
+        "options": [],
+        "query": {
+          "cacheDurationSeconds": 300,
+          "experimentalVariableTextField": "value",
+          "experimentalVariableValueField": "id",
+          "fields": [
+            {
+              "jsonPath": "$..id",
+              "name": "id"
+            },
+            {
+              "jsonPath": "$..externalAccountNumber",
+              "language": "jsonpath",
+              "name": "value"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "urlPath": "/v2/CloudAccounts"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "marcusolsson-json-datasource",
+          "uid": "p1RlKVr7z"
+        },
+        "definition": "$..id",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Azure",
+        "multi": true,
+        "name": "azureaccountid",
+        "options": [],
+        "query": {
+          "cacheDurationSeconds": 300,
+          "experimentalVariableTextField": "name",
+          "experimentalVariableValueField": "id",
+          "fields": [
+            {
+              "jsonPath": "$..id",
+              "name": "id"
+            },
+            {
+              "jsonPath": "$..['name']",
+              "language": "jsonpath",
+              "name": "name"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "urlPath": "/v2/AzureCloudAccount"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Dome9",
+  "uid": "IJ8JCprnk",
+  "version": 6,
+  "weekStart": ""
+}
