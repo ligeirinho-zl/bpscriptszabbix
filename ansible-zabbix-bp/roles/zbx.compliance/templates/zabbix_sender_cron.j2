@@ -141,5 +141,5 @@ MAILTO=””
 */5 * * * * {{ cron_user }} /etc/zabbix/scripts/elasticbeanstalk-ids-no-tag.sh {{ zabbix_server_ip }}
 
 #######  Total Resources  #######
-*/5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k total-resources-no-tag -o $(/etc/zabbix/scripts/total-resources-no-tag.sh)
+5 * * * * {{ cron_user }} /usr/bin/zabbix_sender -z {{ zabbix_server_ip }} -s "AWS" -k total-resources-no-tag -o $(/etc/zabbix/scripts/total-resources-no-tag.sh)
 
