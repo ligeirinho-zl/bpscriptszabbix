@@ -8,17 +8,16 @@
 
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
-declare -r JSONTMP=/tmp/zbx-ec2-eip-no-tags-das56da565.json
 
-aws ec2 describe-addresses --query 'Addresses[*]' --output json > $JSONTMP
+JSONTMP=$(aws ec2 describe-addresses --query 'Addresses[*]' --output json)
 
-jsonArrayLength=$(jq '. | length' $JSONTMP)
+jsonArrayLength=$(echo $JSONTMP | jq -r '. | length')
 
 for (( i=0; i<$jsonArrayLength ; i++ )); do
-  tagsEIPCount=$(jq ".[$i] | .Tags | length" $JSONTMP)
+  tagsEIPCount=$(echo $JSONTMP | jq -r ".[$i] | .Tags | length")
   COUNTER=0
   for (( j=0; j < $tagsEIPCount ; j++ )); do
-    tag=$(jq ".[$i] | .Tags | .[$j] | .Key" $JSONTMP | grep -oP '(?<=").*(?=")')
+    tag=$(echo $JSONTMP | jq -r ".[$i] | .Tags | .[$j] | .Key")
     if [[ -v tagsVerify[$tag] ]]; then
       let COUNTER++
     fi
@@ -29,5 +28,3 @@ for (( i=0; i<$jsonArrayLength ; i++ )); do
 done
 
 echo $TOTALNOIDS
-
-rm -f $JSONTMP

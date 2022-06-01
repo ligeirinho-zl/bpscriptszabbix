@@ -8,18 +8,17 @@
 
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
-declare -r JSONTMP=/tmp/zbx-ec2-snapshots-no-tags-1fd2s1fsd2f1sd.json
 
-aws ec2 describe-snapshots --owner-ids self --query 'Snapshots[*]' --output json > $JSONTMP
+JSONTMP=$(aws ec2 describe-snapshots --owner-ids self --query 'Snapshots[*]' --output json)
 
-jsonArrayLength=$(jq '. | length' $JSONTMP)
+jsonArrayLength=$(echo $JSONTMP | jq -r '. | length' )
 
 for (( i=0; i<$jsonArrayLength ; i++ )); do
-  snapshotId=$(jq ".[$i].SnapshotId" $JSONTMP | grep -oP '(?<=").*(?=")')
-  tagsSnapshotCount=$(jq ".[$i] | .Tags | length" $JSONTMP)
+  snapshotId=$(echo $JSONTMP | jq -r ".[$i].SnapshotId")
+  tagsSnapshotCount=$(echo $JSONTMP | jq -r ".[$i] | .Tags | length")
   COUNTER=0
   for (( j=0; j < $tagsSnapshotCount ; j++ )); do
-    tag=$(jq ".[$i] | .Tags | .[$j] | .Key" $JSONTMP | grep -oP '(?<=").*(?=")')
+    tag=$(echo $JSONTMP | jq -r ".[$i] | .Tags | .[$j] | .Key")
     if [[ -v tagsVerify[$tag] ]]; then
       let COUNTER++
     fi
@@ -28,5 +27,3 @@ for (( i=0; i<$jsonArrayLength ; i++ )); do
     /usr/bin/zabbix_sender -z $1 -s "AWS" -k snapshot-ids-no-tag -o $snapshotId
   fi
 done
-
-rm -f $JSONTMP

@@ -8,19 +8,19 @@
 
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
-declare -r JSONTMP=/tmp/zbx-ec2-ami-total-898sd8as712.json
 
-aws ec2 describe-images --owners self --query 'Images[*].[ImageId,Tags[].Key]' --output json > $JSONTMP
+JSONTMP=$(aws ec2 describe-images --owners self --query 'Images[*]' --output json)
 
-jsonArrayLength=$(jq '. | length' $JSONTMP)
+jsonArrayLength=$(echo $JSONTMP | jq -r '. | length')
 
 for (( i=0; i<$jsonArrayLength ; i++ )); do
-  idAMI=$(jq ".[$i] | .[0]" $JSONTMP | grep -oP '(?<=").*(?=")')
-  tagsAMICount=$(jq ".[$i] | .[1] | length" $JSONTMP)
+  idAMI=$(echo $JSONTMP | jq -r ".[$i].ImageId")
+  tagsAMICount=$(echo $JSONTMP | jq -r ".[$i] | .Tags | length")
+  COUNTER=0
   for (( j=0; j < $tagsAMICount ; j++ )); do
-    tag=$(jq ".[$i] | .[1] | .[$j]" $JSONTMP | grep -oP '(?<=").*(?=")')
+    tag=$(echo $JSONTMP | jq -r ".[$i] | .Tags[] | .Key")
     if [[ -v tagsVerify[$tag] ]]; then
-      let "COUNTER++"
+      let COUNTER++
     fi
   done
   if [[ $COUNTER -ne $totalTags ]]; then
@@ -29,5 +29,3 @@ for (( i=0; i<$jsonArrayLength ; i++ )); do
 done
 
 echo $TOTALNOIDS
-
-rm -f $JSONTMP

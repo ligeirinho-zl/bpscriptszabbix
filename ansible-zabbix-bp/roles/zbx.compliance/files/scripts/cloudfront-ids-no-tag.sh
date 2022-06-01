@@ -8,25 +8,20 @@
 
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
-declare -r TEMPFILE=/tmp/zbx-app-distributions-no-tags-dasd54ad65s4da6.tmp
 
-aws cloudfront list-distributions --query "DistributionList.Items[].ARN" --output json | grep -oP '(?<=").*(?=")' | while read distARN || [[ -n $distARN ]];
-do
-  echo 0 > $TEMPFILE
-  aws cloudfront list-tags-for-resource --resource $distARN --query 'Tags.Items[].Key' | grep -oP '(?<=").*(?=")' | while read tags || [[ -n $tags ]];
-  do
-    if [[ -v tagsVerify[$tags] ]]; then
-      COUNTER=$[$(cat $TEMPFILE) + 1]
-      echo $COUNTER > $TEMPFILE
+IFS=$'\t'
+LG=$(aws cloudfront list-distributions --query "DistributionList.Items[].ARN" --output text)
+
+for resource in $LG; do
+  IFS=$'\n'
+  TAGS=$(aws cloudfront list-tags-for-resource --resource $resource --query 'Tags.Items[].Key')
+  COUNTER=0
+  for tag in $TAGS;  do
+    if [[ -v tagsVerify[$tag] ]]; then
+      let COUNTER++
     fi
   done
-  if [[ $(cat $TEMPFILE) -ne $totalTags ]]; then
-    /usr/bin/zabbix_sender -z $1 -s "AWS" -k cloudfront-ids-no-tag -o $(echo $distARN | cut -d ':' -f 6)
+  if [[ $COUNTER -ne $totalTags ]]; then
+    /usr/bin/zabbix_sender -z $1 -s "AWS" -k cloudfront-ids-no-tag -o $(echo $resource | cut -d ':' -f 6)
   fi
 done
-
-if [ -f "$TEMPFILE" ]
-then
-  unlink $TEMPFILE
-  rm -f $TEMPFILE
-fi

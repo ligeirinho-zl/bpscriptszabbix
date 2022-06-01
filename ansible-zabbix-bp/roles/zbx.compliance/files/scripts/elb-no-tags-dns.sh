@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-aws configservice get-compliance-details-by-config-rule --config-rule-name LB-no-Tags --compliance-types NON_COMPLIANT \
-	--query 'EvaluationResults[*].EvaluationResultIdentifier.EvaluationResultQualifier.ResourceId' \
-	--output json | grep -oP '(?<=").*(?=")' | while read line || [[ -n $line ]];
-do
-   /usr/bin/zabbix_sender -z $1 -s "AWS" -k elb-no-tags-names -o $(echo $line | cut -d ':' -f 6)
+IFS=$'\t'
+LG=$(aws configservice get-compliance-details-by-config-rule --config-rule-name LB-no-Tags --compliance-types NON_COMPLIANT --query 'EvaluationResults[*].EvaluationResultIdentifier.EvaluationResultQualifier.ResourceId' --output text)
+
+for resource in $LG; do
+  /usr/bin/zabbix_sender -z $1 -s "AWS" -k elb-no-tags-names -o $(echo $resource | cut -d ':' -f 6)
 done
