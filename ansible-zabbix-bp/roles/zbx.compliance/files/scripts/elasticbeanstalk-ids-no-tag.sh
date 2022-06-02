@@ -9,8 +9,8 @@
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
 
-IFS=$'\t'
-LG=$(aws elasticbeanstalk describe-applications --query "Applications[].ApplicationArn" --output text)
+IFS=$'\n'
+LG=$(aws elasticbeanstalk describe-applications --query "Applications[].ApplicationArn" --output json | jq -r '.[]')
 
 for resource in $LG; do
   IFS=$'\n'

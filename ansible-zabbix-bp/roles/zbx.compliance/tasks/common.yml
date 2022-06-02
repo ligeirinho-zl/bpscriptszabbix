@@ -28,6 +28,11 @@
       dest: "{{ scripts_path }}"
       delete: true
 
+  - name: Copy Dome9 Script
+    ansible.builtin.copy:
+      src: ../../../../../python/dome9_assessment.py
+      dest: "{{ scripts_path }}"
+
   - name: Change Permissions
     ansible.builtin.shell: |
       chown -R root:root {{ scripts_path }}

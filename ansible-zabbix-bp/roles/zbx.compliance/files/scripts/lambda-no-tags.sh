@@ -9,8 +9,8 @@
 declare -A tagsVerify=(['bp:negocio:nomeJornada']=, ['bp:negocio:nomeSquad']=, ['bp:tecnico:identificacaoDoServico']=, ['bp:tecnico:descricaoDoServico']=, ['bp:tecnico:ambiente']=)
 declare -r totalTags=${#tagsVerify[@]}
 
-IFS=$'\t'
-LG=$(aws lambda list-functions --query 'Functions[*].FunctionArn' --output text)
+IFS=$'\n'
+LG=$(aws lambda list-functions --query 'Functions[*].FunctionArn' --output json | jq -r '.[]')
 
 for resource in $LG; do
   IFS=$'\n'
