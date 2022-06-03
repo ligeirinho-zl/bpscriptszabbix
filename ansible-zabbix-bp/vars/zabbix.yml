@@ -1,5 +1,14 @@
-zabbix_server_version: '5.0'
-zabbix_web_version: '5.0'
+zabbix_server_version: 5.0
+zabbix_web_version: 5.0
+
+zabbix_proxy_version: 5.0
+zabbix_proxy_ubuntu_version: '1:5.0.24-1+focal'
+
+zabbix_agent_version: 5.0
+zabbix_agent_package: zabbix-agent=1:5.0.24-1+focal
+zabbix_sender_package: zabbix-sender=1:5.0.24-1+focal
+zabbix_get_package: zabbix-get=1:5.0.24-1+focal
+
 zabbix_server_name: 'zabbix'
 zabbix_server_version_minor: '1'
 zabbix_server_listenport: 10051

@@ -3,7 +3,7 @@ vpc_netmask: 10.0.0.0/16
 
 web_srv_final_url: 'ec2-18-228-154-165.sa-east-1.compute.amazonaws.com'
 grafana_final_url: ec2-18-228-154-165.sa-east-1.compute.amazonaws.com/grafana
-zabbix_final_url: 'ec2-18-228-154-165.sa-east-1.compute.amazonaws.com/zabbix'
+zabbix_final_url: 'ec2-18-228-154-165.sa-east-1.compute.amazonaws.com/'
 zabbix_final_agent_server: 10.0.0.68
 
 grafana_url: 10.0.0.68:3000

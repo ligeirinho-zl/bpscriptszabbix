@@ -41,3 +41,8 @@ libpq-dev
 ```bash
 ansible-playbook -i inventories/test.yml playbooks/full_install.yml --vault-password-file ~/O2B/keys/vault.pas
 ```
+
+# Finalização da Stack
+
+A stack ira subir em cada maquina definida no inventario para acessos aos conteudos externos usar a maquina que vai ficar na subnet publica
+Atrelar a ela um DNS para acesso e de la acessar grafana\zabbix\zabbix-proxy para redirecionamento para rede interna o banco ficara na rede interna por questão de segurança

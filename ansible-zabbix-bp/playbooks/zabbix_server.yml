@@ -71,3 +71,32 @@
         name: nginx
         state: restarted
         enabled: true
+
+- name: Install Zabbix Proxy
+  hosts: zabbix_proxy
+  become: yes
+  vars_files:
+    - ../vars/zabbix.yml
+    - ../vars/db.yml
+    - ../vars/urls.yml
+  tasks:
+    - name: Include role zabbix server
+      ansible.builtin.include_role:
+        name: community.zabbix.zabbix_proxy
+      vars:
+        zabbix_proxy_mode: 0
+        zabbix_proxy_server: "{{ zabbix_server_url_api | split(':') | first }}"
+        zabbix_proxy_database: pgsql
+        zabbix_proxy_database_long: postgresql
+        zabbix_proxy_dbname: "{{ postgre_zbx_prx_database_name }}"
+        zabbix_proxy_dbport: "{{ postgre_port }}"
+        zabbix_proxy_dbhost: "{{ postgre_host }}"
+        zabbix_proxy_dbhost_run_install: false
+        zabbix_proxy_dbuser: "{{ postgre_zbx_prx_user }}"
+        zabbix_proxy_dbpassword: "{{ postgre_zbx_prx_password }}"
+        zabbix_proxy_privileged_host: '%'
+        zabbix_proxy_pgsql_login_host: "{{ postgre_host }}"
+        zabbix_proxy_pgsql_login_user: "{{ postgre_adm_user }}"
+        zabbix_proxy_pgsql_login_password: "{{ postgre_adm_password }}"
+        zabbix_proxy_pgsql_login_port: "{{ postgre_port }}"
+        zabbix_database_creation: true
